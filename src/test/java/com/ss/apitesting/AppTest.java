@@ -1,4 +1,4 @@
-package org.example;
+package com.ss.apitesting;
 
 import static org.junit.Assert.assertTrue;
 
