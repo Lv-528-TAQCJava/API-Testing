@@ -5,8 +5,8 @@ import static org.hamcrest.Matchers.*;
 
 import io.restassured.response.*;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
