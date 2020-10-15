@@ -3,6 +3,7 @@ package com.ss.apitesting;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import com.ss.apitesting.client.PetClient;
 import io.restassured.response.*;
 
 import org.testng.Assert;
@@ -15,15 +16,17 @@ public class PetStoreTest {
 
     @Test
     public void petFindByIdTest() {
-        Response response = getAndLog("/pet/100");
+        PetClient petClient = new PetClient("json");
+        Response response = petClient.getById("1"); //getAndLog("/pet/1");
 
-        response.then().body("name", is("Billy"));
+        response.then().body("name", is("PawDe"));
 
     }
 
     @Test
     public void petFindByNotExistingIdTest() {
-        Response response = getAndLog("/pet/0");
+        PetClient petClient = new PetClient("json");
+        Response response = petClient.getById("0"); //getAndLog("/pet/0");
 
         response.then().statusCode(404);
 
