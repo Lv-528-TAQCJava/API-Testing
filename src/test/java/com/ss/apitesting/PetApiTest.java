@@ -15,6 +15,6 @@ public class PetApiTest {
         System.out.println(response.getStatusLine());
         System.out.println(response.getContentType());
         int statusCode = response.getStatusCode();
-        Assert.assertEquals(200, statusCode);
+        Assert.assertEquals(201, statusCode);
     }
 }
