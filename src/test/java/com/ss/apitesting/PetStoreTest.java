@@ -17,9 +17,9 @@ public class PetStoreTest {
     @Test
     public void petFindByIdTest() {
         PetClient petClient = new PetClient("json");
-        Response response = petClient.getById("1"); //getAndLog("/pet/1");
+        Response response = petClient.getById("3"); //getAndLog("/pet/1");
 
-        response.then().body("name", is("PawDe"));
+        response.then().body("name", is("doggie"));
 
     }
 

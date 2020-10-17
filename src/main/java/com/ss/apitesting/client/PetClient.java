@@ -5,13 +5,13 @@ import static io.restassured.RestAssured.*;
 
 public class PetClient extends BaseClient {
     public PetClient(ContentType contentType) {
-        super(contentType);
+        super(contentType, "pet");
     }
     public PetClient(String contentType) {
-        super(contentType);
+        super(contentType, "pet");
     }
 
-    public Response getById(String petId) {
+    public Response getById0(String petId) {
         return given()
                 .baseUri(BASE_URL)
                 .contentType(contentType)
