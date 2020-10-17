@@ -11,13 +11,13 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class PetStoreTest {
+public class PetApiTest {
     protected final static String BASE_URL = "https://petstore.swagger.io/v2";
 
     @Test
     public void petFindByIdTest() {
         PetClient petClient = new PetClient("json");
-        Response response = petClient.getById("3"); //getAndLog("/pet/1");
+        Response response = petClient.getById("5"); //often changes, it's better to POST first and then GET
 
         response.then().body("name", is("doggie"));
 
@@ -26,18 +26,20 @@ public class PetStoreTest {
     @Test
     public void petFindByNotExistingIdTest() {
         PetClient petClient = new PetClient("json");
-        Response response = petClient.getById("0"); //getAndLog("/pet/0");
+        Response response = petClient.getById("0");
 
         response.then().statusCode(404);
 
     }
 
+    //TODO rewrite using Client methods
     @Test
     public void petFindByNotExistingStatusTest() {
         Response response = getAndLog("/pet/findByStatus?status=returned");
         response.then().body("status.size()", is(0));
     }
 
+    //TODO rewrite using Client methods
     @Test
     public void petFindByStatusTest() {
         Response response = getAndLog("/pet/findByStatus?status=sold");
@@ -49,8 +51,7 @@ public class PetStoreTest {
         }
     }
 
-
-
+    //TODO replace completely with Client methods
     /**
      * Performs rest-assured get(BASE_URL + subUrl), logs to console and returns the Response
      */
