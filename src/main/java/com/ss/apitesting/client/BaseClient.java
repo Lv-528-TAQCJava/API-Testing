@@ -34,7 +34,7 @@ public abstract class BaseClient {
 
     /**
      * Wrapper for given() with .baseUri, .contentType and so on
-     * @return
+     * @return RequestSpecification which allows you to use .pathParams, .get and other
      */
     protected RequestSpecification prepareRequest() {
         return given()
