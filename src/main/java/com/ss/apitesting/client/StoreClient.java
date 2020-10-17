@@ -6,18 +6,18 @@ import org.json.simple.JSONObject;
 
 public class StoreClient extends BaseClient {
     public StoreClient(ContentType contentType) {
-        super(contentType, "store");    //it would be great to use store/order,
-                                            // but slashes are bad encoded then
+        super(contentType, "store/order");
     }
 
     public StoreClient(String contentType) {
-        super(contentType, "store");
+        super(contentType, "store/order");
     }
 
     public Response postOrder(String requestBody) {
         return prepareRequest()
                 .body(requestBody)
-                .post("/{entity}/order");
+                .urlEncodingEnabled(false)
+                .post("/{entity}");
     }
 
     /**
@@ -36,12 +36,7 @@ public class StoreClient extends BaseClient {
         return requestParams.toJSONString();
     }
 
-    @Override //should be overridden due to store/order in URL
-    public Response getById(String id) {
-        return prepareRequest()
-                .pathParam("id", id)
-                .get("/{entity}/order/{id}");
-    }
+    //public Response getById(String id) - implemented in BaseClient
 
-    //public Response deleteById(String id) - should be overridden due to store/order in URL
+    //public Response deleteById(String id) - implemented in BaseClient
 }

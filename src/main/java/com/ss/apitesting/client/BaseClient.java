@@ -49,6 +49,7 @@ public abstract class BaseClient {
     public Response getById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
+                .urlEncodingEnabled(false) //allows passing special characters (slash, in particular) as a parameter
                 .get("/{entity}/{id}");
     }
 
@@ -58,6 +59,7 @@ public abstract class BaseClient {
     public Response deleteById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
+                .urlEncodingEnabled(false)
                 .delete("/{entity}/{id}");
     }
 }
