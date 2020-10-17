@@ -11,11 +11,7 @@ public class PetClient extends BaseClient {
         super(contentType, "pet");
     }
 
-    public Response getById0(String petId) {
-        return given()
-                .baseUri(BASE_URL)
-                .contentType(contentType)
-                .pathParam("petId", petId)
-                .get("/pet/{petId}");
-    }
+    //public Response getById(String id) - implemented in BaseClient
+
+    //public Response deleteById(String id) - implemented in BaseClient
 }

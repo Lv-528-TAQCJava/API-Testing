@@ -2,6 +2,7 @@ package com.ss.apitesting.client;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
@@ -32,13 +33,22 @@ public abstract class BaseClient {
     }
 
     /**
-     * Every entity must have GET by ID method, so it's in the base class
+     * Wrapper for given() with .baseUri, .contentType and so on
+     * @return
      */
-    public Response getById(String id) {
+    protected RequestSpecification prepareRequest() {
         return given()
                 .baseUri(BASE_URL)
                 .contentType(contentType)
-                .pathParams("entity", entity, "id", id)
+                .pathParam("entity", entity);
+    }
+
+    /**
+     * Every entity must have GET by ID method, so it's in the base class
+     */
+    public Response getById(String id) {
+        return prepareRequest()
+                .pathParam("id", id)
                 .get("/{entity}/{id}");
     }
 
@@ -46,10 +56,8 @@ public abstract class BaseClient {
      * Every entity must have DELETE by ID method, so it's in the base class
      */
     public Response deleteById(String id) {
-        return given()
-                .baseUri(BASE_URL)
-                .contentType(contentType)
-                .pathParams("entity", entity, "id", id)
+        return prepareRequest()
+                .pathParam("id", id)
                 .delete("/{entity}/{id}");
     }
 }
