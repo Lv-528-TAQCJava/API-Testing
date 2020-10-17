@@ -15,14 +15,6 @@ public class PetClient extends BaseClient {
         super(contentType, "pet");
     }
 
-    public Response getById0(String petId) {
-        return given()
-                .baseUri(BASE_URL)
-                .contentType(contentType)
-                .pathParam("petId", petId)
-                .get("/pet/{petId}");
-    }
-
     /**
      * Updates name and status of pet, selected by petId
      * @param petId - id of pet to update
