@@ -38,35 +38,14 @@ public class PetClient extends BaseClient {
 
     /**
      * Tries to create new pet
-     * @param petId
-     * @param name
-     * @param status
+     * @param data in JSON of in XML format
      * @return Result of creating
      */
-    public Response createPet(String petId, String name, String status) {
+    public Response createPet(String data) {
         return given()
                 .baseUri(BASE_URL)
                 .contentType(contentType)
-                .body(
-                        "{\n" +
-                                "  \"id\":" + petId + ",\n" +
-                                "  \"category\": {\n" +
-                                "    \"id\": 0,\n" +
-                                "    \"name\": \"string\"\n" +
-                                "  },\n" +
-                                "  \"name\": \"" + name + "\",\n" +
-                                "  \"photoUrls\": [\n" +
-                                "    \"string\"\n" +
-                                "  ],\n" +
-                                "  \"tags\": [\n" +
-                                "    {\n" +
-                                "      \"id\": 0,\n" +
-                                "      \"name\": \"string\"\n" +
-                                "    }\n" +
-                                "  ],\n" +
-                                "  \"status\": \"" + status + "\"\n" +
-                                "}"
-                )
+                .body(data)
                 .post("/pet");
     }
 }
