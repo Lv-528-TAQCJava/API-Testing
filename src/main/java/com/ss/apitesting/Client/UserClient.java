@@ -1,6 +1,6 @@
 package com.ss.apitesting.client;
 
-import com.ss.apitesting.Util.ReadJson;
+import com.ss.apitesting.util.ReadJson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
