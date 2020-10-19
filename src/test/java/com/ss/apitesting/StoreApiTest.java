@@ -1,6 +1,6 @@
 package com.ss.apitesting;
 
-import com.ss.apitesting.Client.StoreClient;
+import com.ss.apitesting.client.StoreClient;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
