@@ -3,7 +3,7 @@ package com.ss.apitesting;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.Client.PetClient;
 import io.restassured.response.*;
 
 import org.testng.Assert;
