@@ -1,4 +1,4 @@
-package com.ss.apitesting.Client;
+package com.ss.apitesting.client;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

@@ -1,4 +1,4 @@
-package com.ss.apitesting.Client;
+package com.ss.apitesting.client;
 
 import com.ss.apitesting.Util.ReadJson;
 import io.restassured.http.ContentType;

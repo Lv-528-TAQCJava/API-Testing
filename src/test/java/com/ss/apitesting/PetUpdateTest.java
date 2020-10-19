@@ -1,6 +1,6 @@
 package com.ss.apitesting;
 
-import com.ss.apitesting.Client.PetClient;
+import com.ss.apitesting.client.PetClient;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;

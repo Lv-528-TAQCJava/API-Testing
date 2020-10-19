@@ -1,6 +1,6 @@
 package com.ss.apitesting;
 
-import com.ss.apitesting.Client.UserClient;
+import com.ss.apitesting.client.UserClient;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import static org.hamcrest.Matchers.*;

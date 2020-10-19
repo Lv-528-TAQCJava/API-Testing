@@ -1,5 +1,5 @@
 package com.ss.apitesting;
-import com.ss.apitesting.Client.UserClient;
+import com.ss.apitesting.client.UserClient;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.testng.annotations.DataProvider;
