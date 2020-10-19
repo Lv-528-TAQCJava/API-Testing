@@ -1,8 +1,10 @@
 package com.ss.apitesting;
 
+import com.ss.apitesting.data.JSONDataProvider;
 import com.ss.apitesting.client.PetClient;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -28,7 +30,7 @@ public class PetUpdateTest {
             getPet = petClient.getById("" + suitableId);
         } while(getPet.statusCode() != 404);
 
-        petClient.createPet("" + suitableId, "doggo", "available");
+        petClient.createPet(JSONDataProvider.getPetInJSON("" + suitableId, "doggo", "available"));
     }
 
     @AfterMethod
@@ -43,10 +45,50 @@ public class PetUpdateTest {
         String oldStatus = petClient.getById("" + suitableId).body().jsonPath().getString("status");
 
         // Update pet
-        petClient.updateById("" + suitableId, "imu", null).getStatusCode();
+        petClient.updateById("" + suitableId, "imu", null);
+
         // Verify that update was successful
         Response response = petClient.getById("" + suitableId);
         response.then().body("name", is("imu"));
         response.then().body("status", is(oldStatus));
+    }
+
+    @Test
+    public void petUpdateOnlyStatusTest() {
+        String oldName = petClient.getById("" + suitableId).body().jsonPath().getString("name");
+
+        // Update pet
+        petClient.updateById("" + suitableId, null, "sold");
+
+        // Verify that update was successful
+        Response response = petClient.getById("" + suitableId);
+        response.then().body("status", is("sold"));
+        response.then().body("name", is(oldName));
+    }
+
+    @Test
+    public void petUpdateToInvalidStatus() {
+        String oldStatus = petClient.getById("" + suitableId).body().jsonPath().getString("status");
+
+        // Update pet
+        int updateStatus = petClient.updateById("" + suitableId, null, "invalid_status")
+                .statusCode();
+        Response updatedPet = petClient.getById("" + suitableId);
+
+        // Verify that request was unsuccessful
+        updatedPet.then().body("status", is(oldStatus));
+        Assert.assertEquals(updateStatus, 405);
+    }
+
+
+    // Questionable test
+    @Test
+    public void petUpdateWithEmptyName() {
+        // Update pet
+        int updatingStatus = petClient.updateById("" + suitableId, "", null).statusCode();
+        Assert.assertEquals(updatingStatus, 200);
+        // Verify that update was successful
+        Response response = petClient.getById("" + suitableId);
+        response.then().body("name", is(" "));
     }
 }
