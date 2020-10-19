@@ -1,4 +1,4 @@
-package com.ss.apitesting.client;
+package com.ss.apitesting.Client;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -63,4 +63,5 @@ public abstract class BaseClient {
                 .urlEncodingEnabled(false)
                 .delete("/{entity}/{id}");
     }
+
 }

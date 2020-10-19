@@ -1,13 +1,9 @@
-package com.ss.apitesting.client;
+package com.ss.apitesting.Client;
 
+import com.ss.apitesting.Util.ReadJson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
 
 public class UserClient extends BaseClient {
     public UserClient(ContentType contentType) {
@@ -29,7 +25,7 @@ public class UserClient extends BaseClient {
         return prepareRequest()
                 .pathParam("username", username )
                 .urlEncodingEnabled(false)
-                .get("/{user}/{username}");
+                .get("/{entity}/{username}");
     }
 
     public Response putUser(String reqBody) {
@@ -51,5 +47,30 @@ public class UserClient extends BaseClient {
         reqParams.put("userStatus", Integer.toString(userStatus));
 
         return reqParams.toJSONString();
+    }
+
+    /**
+     * Create one user
+     * @param indexOfUser - user's index in TestUserData.json file
+     * @return server response
+     */
+    public Response createUser(int indexOfUser){
+        ReadJson readJson = new ReadJson();
+        return prepareRequest()
+                .body(readJson.getUser(indexOfUser))
+                .urlEncodingEnabled(false)
+                .post("/{entity}");
+    }
+
+    /**
+     * Create array of users
+     * @return server response
+     */
+    public Response createUserArray(){
+        ReadJson readJson = new ReadJson();
+        return prepareRequest()
+                .body(readJson.getArrayOfUsers())
+                .urlEncodingEnabled(false)
+                .post("/{entity}/createWithArray");
     }
 }
