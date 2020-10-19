@@ -1,4 +1,4 @@
-package com.ss.apitesting.Util;
+package com.ss.apitesting.util;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
