@@ -53,6 +53,7 @@ public abstract class BaseClient {
                 .get("/{entity}/{id}");
     }
 
+
     /**
      * Every entity must have DELETE by ID method, so it's in the base class
      */
