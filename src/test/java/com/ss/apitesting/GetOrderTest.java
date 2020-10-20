@@ -6,15 +6,11 @@ import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-
 import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
-public class StoreApiTest {
-    @DataProvider(name = "POST_values")
+public class GetOrderTest {
+    @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
                 {5, 1, "placed", false},
@@ -22,6 +18,7 @@ public class StoreApiTest {
         };
     }
 
+    //TODO move to GetOrderTest or remove
     @Test
     public void orderFindByIdTest() {
         StoreClient storeClient = new StoreClient("json");
@@ -31,7 +28,7 @@ public class StoreApiTest {
 
     }
 
-    @Test(dataProvider = "POST_values")
+    @Test(dataProvider = "postValues")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
         int id = generateId(); //from range [100, 999]
         System.out.println("Using ID: " + id);
@@ -45,10 +42,10 @@ public class StoreApiTest {
 
         storeClient.getById(Integer.toString(id)).then()
                 .statusCode(200)
-                .body("status", is(status))
-                .body("petId", is(petId))
-                .body("quantity", is(quantity))
-                .body("complete", is(complete));
+                .body("status", is(storeModel.status))
+                .body("petId", is(storeModel.petId))
+                .body("quantity", is(storeModel.quantity))
+                .body("complete", is(storeModel.complete));
 
         storeClient.deleteById(Integer.toString(id)); //clean up
     }

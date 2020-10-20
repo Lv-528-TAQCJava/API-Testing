@@ -16,15 +16,11 @@ public abstract class BaseClient {
         this.entity = entity;
     }
     public BaseClient(String contentType, String entity) {
-        switch (contentType) {
+        switch (contentType.toUpperCase()) {
             case "XML":
-            case "Xml":
-            case "xml":
                 this.contentType = ContentType.XML;
                 break;
             case "JSON":
-            case "Json":
-            case "json":
             default:
                 this.contentType = ContentType.JSON;
                 break;
@@ -40,27 +36,28 @@ public abstract class BaseClient {
         return given()
                 .baseUri(BASE_URL)
                 .contentType(contentType)
-                .pathParam("entity", entity);
+                .pathParam("entity", entity) //just write /{entity}/ instead of /pet/, /store/ etc. in your requests
+                .urlEncodingEnabled(false); //allows passing special characters (slash, in particular) as a parameter
     }
 
     /**
      * Every entity must have GET by ID method, so it's in the base class
+     * TODO move from base class to descendants
      */
     public Response getById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
-                .urlEncodingEnabled(false) //allows passing special characters (slash, in particular) as a parameter
                 .get("/{entity}/{id}");
     }
 
 
     /**
      * Every entity must have DELETE by ID method, so it's in the base class
+     * TODO move from base class to descendants
      */
     public Response deleteById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
-                .urlEncodingEnabled(false)
                 .delete("/{entity}/{id}");
     }
 
