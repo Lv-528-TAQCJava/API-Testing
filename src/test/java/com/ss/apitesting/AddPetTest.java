@@ -90,4 +90,15 @@ public class AddPetTest {
                 .statusCode();
         Assert.assertEquals(addingResult, 500);
     }
+
+    @Test
+    public void testAddPetWithNonDigitId() {
+        // Precondition
+        String nonDigitId = "\"eee\"";
+
+        // Adding pet
+        int addingResult = petClient.createPet(JSONDataProvider.getPetInJSON(nonDigitId, "dog", "available"))
+                .statusCode();
+        Assert.assertEquals(addingResult, 500);
+    }
 }
