@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
-public class GetOrderTest {
+public class PostOrderTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
