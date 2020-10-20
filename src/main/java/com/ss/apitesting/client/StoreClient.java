@@ -1,5 +1,6 @@
 package com.ss.apitesting.client;
 
+import com.ss.apitesting.models.StoreModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
@@ -16,6 +17,12 @@ public class StoreClient extends BaseClient {
     public Response postOrder(String requestBody) {
         return prepareRequest()
                 .body(requestBody)
+                .urlEncodingEnabled(false)
+                .post("/{entity}");
+    }
+    public Response postOrder(StoreModel storeModel) {
+        return prepareRequest()
+                .body(storeModel)
                 .urlEncodingEnabled(false)
                 .post("/{entity}");
     }

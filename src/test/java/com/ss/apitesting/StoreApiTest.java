@@ -1,6 +1,7 @@
 package com.ss.apitesting;
 
 import com.ss.apitesting.client.StoreClient;
+import com.ss.apitesting.models.StoreModel;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
 public class StoreApiTest {
@@ -23,26 +25,22 @@ public class StoreApiTest {
     @Test
     public void orderFindByIdTest() {
         StoreClient storeClient = new StoreClient("json");
-        Response response = storeClient.getById("268");
+        Response response = storeClient.getById("10");
 
-        response.then().body("status", is("ordered"));
+        response.then().body("status", is("placed"));
 
     }
 
     @Test(dataProvider = "POST_values")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
-        Random rand = new Random();
-
-        int id = rand.nextInt(900) + 100; //from range [100, 999]
+        int id = generateId(); //from range [100, 999]
         System.out.println("Using ID: " + id);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"); //2020-10-17T17:08:20.912Z
-        Date date = new Date(System.currentTimeMillis());
-        String dateStr = formatter.format(date);
+        String dateStr = generateDateString();
         System.out.println("Current datetime: " + dateStr);
 
         StoreClient storeClient = new StoreClient("json");
-        String body = storeClient.prepareOrder(id, petId, quantity, dateStr, status, complete);
-        storeClient.postOrder(body).then()
+        StoreModel storeModel = new StoreModel(id, petId, quantity, dateStr, status, complete);
+        storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
         storeClient.getById(Integer.toString(id)).then()
