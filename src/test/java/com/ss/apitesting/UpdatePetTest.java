@@ -1,6 +1,5 @@
 package com.ss.apitesting;
 
-import com.ss.apitesting.data.JSONDataProvider;
 import com.ss.apitesting.client.PetClient;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -12,9 +11,11 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.is;
 
-public class PetUpdateTest {
+public class UpdatePetTest {
     protected int suitableId;
     protected PetClient petClient;
+
+    // TODO Use dataProvider
 
     @BeforeClass
     public void init() {
@@ -22,6 +23,7 @@ public class PetUpdateTest {
         petClient = new PetClient(ContentType.JSON);
     }
 
+    @Deprecated
     @BeforeMethod
     public void createTemporaryPet() {
         Response getPet;
@@ -30,7 +32,7 @@ public class PetUpdateTest {
             getPet = petClient.getById("" + suitableId);
         } while(getPet.statusCode() != 404);
 
-        petClient.createPet(JSONDataProvider.getPetInJSON("" + suitableId, "doggo", "available"));
+        //petClient.createPet(JSONDataProvider.getPetInJSON("" + suitableId, "doggo", "available"));
     }
 
     @AfterMethod
@@ -79,7 +81,6 @@ public class PetUpdateTest {
         updatedPet.then().body("status", is(oldStatus));
         Assert.assertEquals(updateStatus, 405);
     }
-
 
     // Questionable test
     @Test

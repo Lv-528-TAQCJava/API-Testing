@@ -1,7 +1,7 @@
 package com.ss.apitesting;
 
 import com.ss.apitesting.client.StoreClient;
-import com.ss.apitesting.models.StoreModel;
+import com.ss.apitesting.models.order.StoreModel;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -10,6 +10,7 @@ import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
 public class PostOrderTest {
+    // TODO Now you can use OrderBulider
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
