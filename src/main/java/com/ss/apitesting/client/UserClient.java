@@ -6,14 +6,17 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
 public class UserClient extends BaseClient {
+
     public UserClient(ContentType contentType) {
         super(contentType, "user");
-
     }
 
     public UserClient(String contentType) {
         super(contentType, "user");
+    }
 
+    public UserClient() {
+        super(ContentType.JSON, "user");
     }
 
     /**
