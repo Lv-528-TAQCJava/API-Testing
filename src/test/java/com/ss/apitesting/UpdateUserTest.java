@@ -42,12 +42,6 @@ public class UpdateUserTest {
         userName = null;
     }
 
-//    @DataProvider
-//    public static Object[][] usernameValue() {
-//        return new Object[][] {
-//                {857504, "user1", "Christophe", "Dur", "string", "string", "string", 0}};
-//    }
-//
 
     @Test
     public void updateUserTest() {
