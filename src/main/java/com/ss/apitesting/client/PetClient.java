@@ -1,4 +1,5 @@
 package com.ss.apitesting.client;
+import com.ss.apitesting.models.pet.PetModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.*;
 
@@ -56,5 +57,10 @@ public class PetClient extends BaseClient {
         return prepareRequest()
                 .pathParam("id", id)
                 .delete("/{entity}/{id}");
+    }
+    public Response createNewPet(PetModel petModel) {
+        return prepareRequest()
+                .body(petModel)
+                .post("/{entity}");
     }
 }
