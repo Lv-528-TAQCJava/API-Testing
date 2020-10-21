@@ -27,20 +27,20 @@ public class GetPetTest {
         return id;
     }
 
-//    @Test
-//    public void petGetByExistingId() {
-//        // Precondition
-//        int freeId = findFreeID();
-//        petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "catto", "sold"));
-//
-//        // Getting pet
-//        Response response = petClient.getById("" + freeId);
-//        response.then().body("name", is("catto"));
-//        response.then().body("status", is("sold"));
-//
-//        // Remove temporary pet
-//        petClient.deleteById("" + freeId);
-//    }
+    @Test
+    public void petGetByExistingId() {
+        // Precondition
+        int freeId = findFreeID();
+        petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "catto", "sold"));
+
+        // Getting pet
+        Response response = petClient.getById("" + freeId);
+        response.then().body("name", is("catto"));
+        response.then().body("status", is("sold"));
+
+        // Remove temporary pet
+        petClient.deleteById("" + freeId);
+    }
 
     @Test
     public void petGetByNonexistentId() {
