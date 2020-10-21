@@ -1,4 +1,4 @@
-package com.ss.apitesting.models;
+package com.ss.apitesting.models.order;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,6 +29,7 @@ public class StoreModel {
     @JsonProperty("complete")
     public Boolean complete;
 
+    // TODO maybe rename it to OrderModel? But only if you wish
     public StoreModel(Integer id, Integer petId, Integer quantity, String shipDate, String status, Boolean complete) {
         super();
         this.id = id;
@@ -37,6 +38,16 @@ public class StoreModel {
         this.shipDate = shipDate;
         this.status = status;
         this.complete = complete;
+    }
+
+    public StoreModel() {
+        super();
+        this.id = 0;
+        this.petId = 0;
+        this.quantity = 0;
+        this.shipDate = "2020-10-21T15:07:07.347Z";
+        this.status = "placed";
+        this.complete = true;
     }
 
     @Override

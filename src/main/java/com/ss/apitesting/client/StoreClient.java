@@ -1,6 +1,6 @@
 package com.ss.apitesting.client;
 
-import com.ss.apitesting.models.StoreModel;
+import com.ss.apitesting.models.order.StoreModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
