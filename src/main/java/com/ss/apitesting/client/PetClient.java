@@ -29,11 +29,10 @@ public class PetClient extends BaseClient {
         if(newStatus != null)
             formParams.put("status", newStatus);
 
-        return given()
-                .baseUri(BASE_URL)
+        return prepareRequest()
                 .formParams(formParams)
                 .pathParam("petId", petId)
-                .post("/pet/{petId}");
+                .post("/{entity}/{petId}");
     }
 
     /**
@@ -42,10 +41,20 @@ public class PetClient extends BaseClient {
      * @return Result of creating
      */
     public Response createPet(String data) {
-        return given()
-                .baseUri(BASE_URL)
-                .contentType(contentType)
+        return prepareRequest()
                 .body(data)
-                .post("/pet");
+                .post("/{entity}");
+    }
+
+    public Response getById(String id) {
+        return prepareRequest()
+                .pathParam("id", id)
+                .get("/{entity}/{id}");
+    }
+
+    public Response deleteById(String id) {
+        return prepareRequest()
+                .pathParam("id", id)
+                .delete("/{entity}/{id}");
     }
 }
