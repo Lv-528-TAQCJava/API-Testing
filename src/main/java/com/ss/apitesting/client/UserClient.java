@@ -1,5 +1,6 @@
 package com.ss.apitesting.client;
 
+import com.ss.apitesting.models.user.UserModel;
 import com.ss.apitesting.util.ReadJson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -28,25 +29,11 @@ public class UserClient extends BaseClient {
                 .get("/{entity}/{username}");
     }
 
-    public Response putUser(String reqBody) {
+    public Response putUser(UserModel reqBody, String username) {
         return prepareRequest()
                 .body(reqBody)
                 .urlEncodingEnabled(false)
-                .put("/{entity}/{username}");
-    }
-
-    public String updateUser(int id, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) {
-        JSONObject reqParams = new JSONObject();
-        reqParams.put("id", Integer.toString(id));
-        reqParams.put("username", username);
-        reqParams.put("firstName", firstName);
-        reqParams.put("lastName", lastName);
-        reqParams.put("email", email);
-        reqParams.put("password", password);
-        reqParams.put("phone", phone);
-        reqParams.put("userStatus", Integer.toString(userStatus));
-
-        return reqParams.toJSONString();
+                .put("/{entity}/" + username);
     }
 
     /**
@@ -62,6 +49,12 @@ public class UserClient extends BaseClient {
                 .post("/{entity}");
     }
 
+    public Response createNewUser(UserModel userModel) {
+        return prepareRequest()
+                .body(userModel)
+                .post("/{entity}");
+    }
+
     /**
      * Create array of users
      * @return server response
@@ -72,5 +65,11 @@ public class UserClient extends BaseClient {
                 .body(readJson.getArrayOfUsers())
                 .urlEncodingEnabled(false)
                 .post("/{entity}/createWithArray");
+    }
+
+    public Response deleteByUsername(String username) {
+        return prepareRequest()
+                .pathParam("username", username)
+                .delete("/{entity}/{username}");
     }
 }
