@@ -1,5 +1,6 @@
 package com.ss.apitesting;
 
+import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import io.restassured.response.Response;
@@ -10,7 +11,6 @@ import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
 public class PostOrderTest {
-    // TODO Now you can use OrderBulider
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
@@ -37,7 +37,15 @@ public class PostOrderTest {
         System.out.println("Current datetime: " + dateStr);
 
         StoreClient storeClient = new StoreClient("json");
-        StoreModel storeModel = new StoreModel(id, petId, quantity, dateStr, status, complete);
+        //StoreModel storeModel = new StoreModel(id, petId, quantity, dateStr, status, complete);
+        StoreModel storeModel = OrderBuilder.orderWith()
+                .id(id)
+                .petId(petId)
+                .quantity(quantity)
+                .shipDate(dateStr)
+                .status(status)
+                .complete(complete)
+                .build();
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
