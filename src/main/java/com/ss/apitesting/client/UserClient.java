@@ -49,6 +49,11 @@ public class UserClient extends BaseClient {
                 .post("/{entity}");
     }
 
+    /**
+     * Create new user
+     * @param userModel
+     * @return
+     */
     public Response createNewUser(UserModel userModel) {
         return prepareRequest()
                 .body(userModel)
