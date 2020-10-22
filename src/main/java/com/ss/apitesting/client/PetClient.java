@@ -72,4 +72,14 @@ public class PetClient extends BaseClient {
                 .body(data)
                 .post("/pet");
     }
+    public Response createNewPet(PetModel petModel) {
+        return prepareRequest()
+                .body(petModel)
+                .post("/{entity}");
+    }
+    public Response getPetByStatus(String status){
+        return  prepareRequest()
+                .queryParam("status", status)
+                .get("/{entity}/findByStatus");
+    }
 }
