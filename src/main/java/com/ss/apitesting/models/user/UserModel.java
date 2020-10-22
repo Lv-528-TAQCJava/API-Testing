@@ -35,31 +35,6 @@ public class UserModel {
     @JsonProperty("userStatus")
     public Integer userStatus;
 
-    public UserModel(Integer id, String username, String firstname, String lastname, String email,
-                    String password, String phone, Integer userStatus) {
-        super();
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.userStatus = userStatus;
-    }
-
-    public UserModel() {
-        super();
-        this.id = 0;
-        this.username = "string";
-        this.firstname = "string";
-        this.lastname = "string";
-        this.email = "string";
-        this.password = "string";
-        this.phone = "string";
-        this.userStatus = 0;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -74,4 +49,43 @@ public class UserModel {
                 .toString();
     }
 
+    public UserModel() {
+        super();
+        this.id = 0;
+        this.username = "string";
+        this.firstname = "string";
+        this.lastname = "string";
+        this.email = "string";
+        this.password = "string";
+        this.phone = "string";
+        this.userStatus = 0;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+    }
 }
