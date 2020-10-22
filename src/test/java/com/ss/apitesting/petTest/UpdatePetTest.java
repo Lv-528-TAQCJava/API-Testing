@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.petTest;
 
 import com.ss.apitesting.client.PetClient;
 import io.restassured.http.ContentType;
