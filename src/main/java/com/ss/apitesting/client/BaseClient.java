@@ -40,25 +40,5 @@ public abstract class BaseClient {
                 .urlEncodingEnabled(false); //allows passing special characters (slash, in particular) as a parameter
     }
 
-    /**
-     * Every entity must have GET by ID method, so it's in the base class
-     * TODO move from base class to descendants
-     */
-    public Response getById(String id) {
-        return prepareRequest()
-                .pathParam("id", id)
-                .get("/{entity}/{id}");
-    }
-
-
-    /**
-     * Every entity must have DELETE by ID method, so it's in the base class
-     * TODO move from base class to descendants
-     */
-    public Response deleteById(String id) {
-        return prepareRequest()
-                .pathParam("id", id)
-                .delete("/{entity}/{id}");
-    }
 
 }
