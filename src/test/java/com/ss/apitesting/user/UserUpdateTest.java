@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.user;
 import com.ss.apitesting.client.UserClient;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,15 +1,15 @@
-package com.ss.apitesting;
+package com.ss.apitesting.user;
 
 import com.ss.apitesting.client.UserClient;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-public class CreateUserTest {
+public class CreateUsersWithArrayTest {
 
     @Test
-    public void createUserTest(){
+    public void createUsersWithArrayTest(){
         UserClient userClient = new UserClient("json");
-        Response response = userClient.createUser(1);
+        Response response = userClient.createUserArray();
         response.then().statusCode(200).log().all();
     }
 }

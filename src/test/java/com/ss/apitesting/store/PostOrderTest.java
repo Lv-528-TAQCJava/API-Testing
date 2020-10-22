@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.store;
 
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
