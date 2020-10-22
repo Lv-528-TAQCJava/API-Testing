@@ -63,4 +63,9 @@ public class PetClient extends BaseClient {
                 .body(petModel)
                 .post("/{entity}");
     }
+    public Response getPetByStatus(String status){
+        return  prepareRequest()
+                .queryParam("status", status)
+                .get("/{entity}/findByStatus");
+    }
 }
