@@ -19,21 +19,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class UserModel {
 
     @JsonProperty("id")
-    private Integer id;
+    public Integer id;
     @JsonProperty("username")
     public String username;
     @JsonProperty("firstname")
-    private String firstname;
+    public String firstname;
     @JsonProperty("lastname")
-    private String lastname;
+    public String lastname;
     @JsonProperty("email")
-    private String email;
+    public String email;
     @JsonProperty("password")
-    private String password;
+    public String password;
     @JsonProperty("phone")
-    private String phone;
+    public String phone;
     @JsonProperty("userStatus")
-    private Integer userStatus;
+    public Integer userStatus;
 
     @Override
     public String toString() {
@@ -47,6 +47,18 @@ public class UserModel {
                 .append("phone", phone)
                 .append("userStatus", userStatus)
                 .toString();
+    }
+
+    public UserModel() {
+        super();
+        this.id = 0;
+        this.username = "string";
+        this.firstname = "string";
+        this.lastname = "string";
+        this.email = "string";
+        this.password = "string";
+        this.phone = "string";
+        this.userStatus = 0;
     }
 
     public void setId(Integer id) {

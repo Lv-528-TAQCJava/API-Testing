@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.UserTest;
 
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
@@ -60,12 +60,12 @@ public class UpdateUserTest {
     public void updateUserNullPropTest() {
         UserModel updatedModel;
         updatedModel = userModel;
-        updatedModel.setFirstname(null);
-        updatedModel.setLastname(null);
+        updatedModel.setFirstname("");
+        updatedModel.setLastname("");
         userClient.putUser(updatedModel, userModel.username);
         Response response = userClient.getByUsername(userModel.username);
-        response.then().body("firstName", is(null));
-        response.then().body("lastName", is(null));
+        response.then().body("firstName", is(""));
+        response.then().body("lastName", is(""));
         response.then().contentType(ContentType.JSON);
     }
 }
