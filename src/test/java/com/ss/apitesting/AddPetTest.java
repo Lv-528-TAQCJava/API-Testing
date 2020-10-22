@@ -23,7 +23,7 @@ public class AddPetTest {
         do {
             id++;
             getPet = petClient.getById("" + id);
-        } while(getPet.statusCode() != 404);
+        } while (getPet.statusCode() != 404);
         return id;
     }
 
@@ -33,9 +33,10 @@ public class AddPetTest {
         do {
             id++;
             getPet = petClient.getById("" + id);
-        } while(getPet.statusCode() != 200);
+        } while (getPet.statusCode() != 200);
         return id;
     }
+
 
     @Test
     public void testAddValidPet() {

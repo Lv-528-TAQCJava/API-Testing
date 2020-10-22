@@ -1,7 +1,6 @@
 package com.ss.apitesting.client;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
@@ -15,6 +14,7 @@ public abstract class BaseClient {
         this.contentType = contentType;
         this.entity = entity;
     }
+
     public BaseClient(String contentType, String entity) {
         switch (contentType.toUpperCase()) {
             case "XML":
@@ -39,6 +39,4 @@ public abstract class BaseClient {
                 .pathParam("entity", entity) //just write /{entity}/ instead of /pet/, /store/ etc. in your requests
                 .urlEncodingEnabled(false); //allows passing special characters (slash, in particular) as a parameter
     }
-
-
 }

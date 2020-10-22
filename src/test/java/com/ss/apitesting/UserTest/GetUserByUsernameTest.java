@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.UserTest;
 
 import com.ss.apitesting.client.UserClient;
 import io.restassured.response.Response;
