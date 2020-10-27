@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 
 public class CreateUserTest {
 
-    @Test
+    /*@Test
     public void createUserTest(){
         UserClient userClient = new UserClient("json");
         Response response = userClient.createUser(1);
         response.then().statusCode(200).log().all();
-    }
+    }*/
 }

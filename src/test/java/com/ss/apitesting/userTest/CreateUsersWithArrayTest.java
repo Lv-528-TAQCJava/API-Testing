@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 
 public class CreateUsersWithArrayTest {
 
-    @Test
+    /*@Test
     public void createUsersWithArrayTest(){
         UserClient userClient = new UserClient("json");
         Response response = userClient.createUserArray();
         response.then().statusCode(200).log().all();
-    }
+    }*/
 }
