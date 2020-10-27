@@ -65,4 +65,11 @@ public class BaseAssertion {
         response.body(bodyParameter, contains(expectedValue));
         return this;
     }
+
+    /**
+     * For further assertions with fluent interface, not defined here but present in ValidatableResponse
+     */
+    public ValidatableResponse assertAnother() {
+        return response;
+    }
 }
