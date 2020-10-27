@@ -36,18 +36,6 @@ public class UserClient extends BaseClient {
                 .urlEncodingEnabled(false)
                 .put("/{entity}/" + username);
     }
-/*
-    *//**
-     * Create one user
-     * @param indexOfUser - user's index in TestUserData.json file
-     * @return server response
-     *//*
-    public Response createUser(int indexOfUser){
-        return prepareRequest()
-                .body(readJson.getUser(indexOfUser))
-                .urlEncodingEnabled(false)
-                .post("/{entity}");
-    }*/
 
     /**
      * Create new user
@@ -59,17 +47,6 @@ public class UserClient extends BaseClient {
                 .body(userModel)
                 .post("/{entity}");
     }
-
-   /* *//**
-     * Create array of users
-     * @return server response
-     *//*
-    public Response createUserArray(){
-        return prepareRequest()
-                .body(createUser())
-                .urlEncodingEnabled(false)
-                .post("/{entity}/createWithArray");
-    }*/
 
     public Response deleteByUsername(String username) {
         return prepareRequest()
