@@ -2,9 +2,11 @@ package com.ss.apitesting.userTest;
 
 import com.ss.apitesting.client.UserClient;
 import io.restassured.response.Response;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import static org.hamcrest.Matchers.*;
 
+@Ignore
 public class GetUserByUsernameTest {
 
     @Test

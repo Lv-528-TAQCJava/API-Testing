@@ -9,12 +9,14 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 
+@Ignore
 public class GetPetByStatusTest {
     protected PetClient petClient;
 

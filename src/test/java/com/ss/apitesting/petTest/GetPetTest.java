@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.is;
 
+@Ignore
 public class GetPetTest {
     protected PetClient petClient;
 

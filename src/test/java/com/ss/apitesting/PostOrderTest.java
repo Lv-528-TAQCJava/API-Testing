@@ -4,14 +4,15 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import static com.ss.apitesting.util.ValuesGenerator.*;
-import static org.hamcrest.Matchers.is;
+import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
+import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
+
+@Ignore
 public class PostOrderTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {

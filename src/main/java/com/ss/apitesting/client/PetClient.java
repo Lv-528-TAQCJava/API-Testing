@@ -34,43 +34,31 @@ public class PetClient extends BaseClient {
     }
 
     /**
-     * TODO repalece all parameters with PetModel obj
-     * Updates name and status of pet, selected by petId
-     * @param petId - id of pet to update
-     * @param newName - "optional" parameter. Put null to avoid it
-     * @param newStatus - "optional" parameter. Put null to avoid it
+     * Updates name and status of pet, selected by pet's Id
+     * @param pet a pet to update
      * @return result of POST request
      */
-    public Response updateById(String petId, String newName, String newStatus) {
+    public Response updatePet(PetModel pet) {
         Map<String, String> formParams = new HashMap<String, String>();
+        formParams.put("name", pet.name);
+        formParams.put("status", pet.status);
         // TODO find a way to put not null values into map
-        if(newName != null)
-            formParams.put("name", newName);
-        if(newStatus != null)
-            formParams.put("status", newStatus);
 
-        return given()
-                .baseUri(BASE_URL)
-                // PAY ATTENTION!
-                // Also note that formParam() adds a Content-Type header with the value “application/x-www-form-urlencoded“.
-                // ContentType.URLENC == URLENC(new String[]{"application/x-www-form-urlencoded"}),
+        return prepareRequest()
                 .formParams(formParams)
-                .pathParam("petId", petId)
-                .post("/pet/{petId}");
+                .pathParam("petId", pet.petId)
+                .post("/{entity}/{petId}");
     }
 
     /**
-     * TODO replace data with PetModel
      * Tries to create new pet
-     * @param data in JSON of in XML format
+     * @param pet to create
      * @return Result of creating
      */
-    public Response createPet(String data) {
-        return given()
-                .baseUri(BASE_URL)
-                .contentType(contentType)
-                .body(data)
-                .post("/pet");
+    public Response createPet(PetModel pet) {
+        return prepareRequest()
+                .body(pet)
+                .post("/{entity}");
     }
     public Response createNewPet(PetModel petModel) {
         return prepareRequest()

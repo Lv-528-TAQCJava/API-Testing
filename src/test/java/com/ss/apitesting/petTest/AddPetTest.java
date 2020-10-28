@@ -1,6 +1,8 @@
 package com.ss.apitesting.petTest;
 
+import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.models.pet.PetModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -8,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-@Ignore //TODO JSONDataProvider is removed, rewrite tests
+@Ignore
 public class AddPetTest {
     protected PetClient petClient;
 
@@ -44,6 +46,8 @@ public class AddPetTest {
         int freeId = findFreeID();
 
         // Adding pet
+        PetModel pet = PetBuilder.petWith().id(freeId).name("doggo").status("available").build();
+        petClient.createPet(pet);
         //petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "doggo", "available"));
         int creatingStatus = petClient.getById("" + freeId).getStatusCode();
         Assert.assertEquals(creatingStatus, 200);
