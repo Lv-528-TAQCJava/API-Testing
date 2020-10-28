@@ -20,6 +20,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 public class UserClient extends BaseClient {
 
+    private UserModel userModel;
+
     public UserClient(ContentType contentType) {
         super(contentType, "user");
     }
@@ -49,6 +51,18 @@ public class UserClient extends BaseClient {
                 .put("/{entity}/" + username);
     }
 
+    public Response getUserLogin(String username, String password) {
+        return prepareRequest()
+                .queryParam("username", username)
+                .queryParam("password", password)
+                .get("/{entity}/login");
+    }
+
+    public Response getUserLogout() {
+        return prepareRequest()
+                .get("/{entity}/logout");
+    }
+
     /**
      * Create new user
      * @param userModel
@@ -71,8 +85,6 @@ public class UserClient extends BaseClient {
                 .pathParam("username", username)
                 .delete("/{entity}/{username}");
     }
-    private UserModel userModel;
-
 
     public UserModel createUserData() {
         int userId = generateId();
