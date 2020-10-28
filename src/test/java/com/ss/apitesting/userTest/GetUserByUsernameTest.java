@@ -9,7 +9,7 @@ import io.restassured.http.ContentType;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-@Epic("Test operation about user")
+@Epic("Operation about user tests")
 @Feature("Get user by username test suite")
 public class GetUserByUsernameTest {
 

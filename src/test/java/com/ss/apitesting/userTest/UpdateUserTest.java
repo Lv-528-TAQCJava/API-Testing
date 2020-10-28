@@ -3,6 +3,8 @@ package com.ss.apitesting.userTest;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -14,6 +16,8 @@ import org.testng.annotations.Test;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.Matchers.is;
 
+@Epic("Operation about user tests")
+@Feature("Update user test suite")
 public class UpdateUserTest {
     private UserModel userModel;
     private String userName;

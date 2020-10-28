@@ -1,6 +1,8 @@
 package com.ss.apitesting.petTest;
 
 import com.ss.apitesting.client.PetClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -10,6 +12,8 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.is;
 
+@Epic("Operation with pets tests")
+@Feature("Get pet test suite")
 public class GetPetTest {
     protected PetClient petClient;
 

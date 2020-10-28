@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-@Epic("Test operation about user")
+@Epic("Operation about user tests")
 @Feature("Create user test suite")
 public class CreateUserTest {
 

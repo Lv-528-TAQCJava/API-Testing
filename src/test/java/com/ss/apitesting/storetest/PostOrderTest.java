@@ -4,6 +4,8 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
@@ -12,6 +14,8 @@ import org.testng.annotations.Test;
 import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
 
+@Epic("Access to Petstore orders tests")
+@Feature("Post order test suite")
 public class PostOrderTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
