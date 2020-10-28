@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.storetest;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
@@ -21,17 +21,6 @@ public class PostOrderTest {
         };
     }
 
-    //TODO move to GetOrderTest or remove
-    @Test
-    public void orderFindByIdTest() {
-        StoreClient storeClient = new StoreClient("json");
-
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById("7"));
-        assertion.defaultAsserts()
-                .bodyValueEquals("status", "placed");
-
-    }
-
     @Test(dataProvider = "postValues")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
         int id = generateId(); //from range [100, 999]
@@ -51,13 +40,13 @@ public class PostOrderTest {
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById(Integer.toString(id)));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById(id));
         assertion.defaultAsserts()
                 .bodyValueEquals("status", storeModel.status)
                 .bodyValueEquals("petId", storeModel.petId)
                 .bodyValueEquals("quantity", storeModel.quantity)
                 .bodyValueEquals("complete", storeModel.complete);
 
-        storeClient.deleteById(Integer.toString(id)); //clean up
+        storeClient.deleteById(id); //clean up
     }
 }

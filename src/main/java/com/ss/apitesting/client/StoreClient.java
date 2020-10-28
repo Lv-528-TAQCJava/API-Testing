@@ -3,7 +3,6 @@ package com.ss.apitesting.client;
 import com.ss.apitesting.models.order.StoreModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.json.simple.JSONObject;
 
 public class StoreClient extends BaseClient {
 
@@ -19,24 +18,16 @@ public class StoreClient extends BaseClient {
         super(ContentType.JSON, "store/order");
     }
 
-    public Response getById(String id) {
+    public Response getById(int id) {
         return prepareRequest()
                 .pathParam("id", id)
                 .get("/{entity}/{id}");
     }
 
-    public Response deleteById(String id) {
+    public Response deleteById(int id) {
         return prepareRequest()
                 .pathParam("id", id)
                 .delete("/{entity}/{id}");
-    }
-
-    @Deprecated
-    public Response postOrder(String requestBody) {
-        return prepareRequest()
-                .body(requestBody)
-                .urlEncodingEnabled(false)
-                .post("/{entity}");
     }
 
     public Response postOrder(StoreModel storeModel) {
