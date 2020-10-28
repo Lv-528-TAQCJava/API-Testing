@@ -37,6 +37,18 @@ public class UserClient extends BaseClient {
                 .put("/{entity}/" + username);
     }
 
+    public Response getUserLogin(String username, String password) {
+        return prepareRequest()
+                .queryParam("username", username)
+                .queryParam("password", password)
+                .get("/{entity}/login");
+    }
+
+    public Response getUserLogout() {
+        return prepareRequest()
+                .get("/{entity}/logout");
+    }
+
     /**
      * Create new user
      * @param userModel

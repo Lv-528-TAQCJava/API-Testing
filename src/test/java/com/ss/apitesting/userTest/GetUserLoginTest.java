@@ -13,10 +13,10 @@ import org.testng.annotations.Test;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-public class DeleteUserTest {
+
+public class GetUserLoginTest {
     private UserModel userModel;
     private UserClient userClient;
-
     @BeforeClass(alwaysRun = true)
     public void init() {
         userClient = new UserClient(ContentType.JSON);
@@ -36,15 +36,27 @@ public class DeleteUserTest {
     }
 
     @Test
-    public void deleteUserTest() {
-        Response response = userClient.deleteByUsername(userModel.username);
+    public void getUserLoginTest() {
+        Response response = userClient.getUserLogin(userModel.username, userModel.password);
+        System.out.println(response.getContentType() + " " + response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), HTTP_OK);
+        response.then().contentType(ContentType.JSON);
     }
 
     @Test
-    public void deleteUserWithInvalidUsernameTest() {
-        Response response = userClient.deleteByUsername("user1");
+    public void getUserLoginInvalidPasswordTest() {
+        Response response = userClient.getUserLogin(userModel.username, "111111");
+        System.out.println(response.getStatusCode() + " " + response.getContentType());
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        Assert.assertEquals(response.getContentType(), "");
+        response.then().contentType(ContentType.JSON);
     }
+
+    @Test
+    public void getUserLoginInvalidUsernameTest() {
+        Response response = userClient.getUserLogin("someInvalidUsername", userModel.password);
+        System.out.println(response.getStatusCode() + " " + response.getContentType());
+        Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
+        response.then().contentType(ContentType.JSON);
+    }
+
 }
