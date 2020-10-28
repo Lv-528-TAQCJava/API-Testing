@@ -13,7 +13,6 @@ import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 public class UserClient extends BaseClient {
 
-    private UserModel userModel;
 
     public UserClient(ContentType contentType) {
         super(contentType, "user");
@@ -75,12 +74,12 @@ public class UserClient extends BaseClient {
 
     public UserModel createUserData() {
         int userId = generateId();
-        userModel = UserBuilder.userWith()
+        UserModel userModel = UserBuilder.userWith()
                 .id(userId)
                 .username("Username" + userId)
                 .firstname("User" + userId + "firstname")
                 .lastname("User" + userId + "lastname")
-                .email("User" + userId + "email" + "@gmail.com")
+                .email("User" + userId + "@gmail.com")
                 .password("User" + userId + "password")
                 .phone("+380" + RandomStringUtils.randomAlphabetic(9))
                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
@@ -95,4 +94,5 @@ public class UserClient extends BaseClient {
         }
         return userList;
     }
+
 }

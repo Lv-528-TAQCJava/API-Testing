@@ -79,6 +79,8 @@ public class UserModel {
         this.id = id;
     }
 
+    public void setUsername(String username){ this.username = username;}
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
