@@ -28,21 +28,23 @@ public class GetPetByStatusTest {
     public void getPetByValidStatusTest(){
         ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus("available"));
         assertion.defaultAsserts()
-                .bodyArraySizeGreater("status", 0)
+                .bodyArrayNotEmpty("status")
                 .bodyArrayEquals("status", "available");
 
     }
 
     @Test
     public void getPetByInvalidStatusTest(){
-        Response response = petClient.getPetByStatus("InvalidStatus");
-        response.then().body("status.size()", is(0));
+        ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus("InvalidStatus"));
+        assertion.defaultAsserts()
+                .bodyArrayEmpty("status");
     }
 
     @Test
     public void getPetByEmptyStatusTest(){
-        Response response = petClient.getPetByStatus("");
-        response.then().body("status.size()", is(0));
+        ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus(""));
+        assertion.defaultAsserts()
+                .bodyArrayEmpty("status");
     }
 
 }

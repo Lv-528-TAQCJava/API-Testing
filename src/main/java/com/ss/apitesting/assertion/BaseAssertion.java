@@ -51,7 +51,7 @@ public class BaseAssertion {
         return this;
     }
 
-    public BaseAssertion bodyValueEquals(String bodyParameter, Double expectedValue) {
+    public BaseAssertion bodyValueEquals(String bodyParameter, Double expectedValue) { //Maybe add delta?
         response.body(bodyParameter, is(expectedValue));
         return this;
     }
