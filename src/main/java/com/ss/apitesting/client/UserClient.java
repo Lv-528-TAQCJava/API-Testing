@@ -1,10 +1,8 @@
 package com.ss.apitesting.client;
 
 import com.ss.apitesting.models.user.UserModel;
-import com.ss.apitesting.util.ReadJson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.json.simple.JSONObject;
 
 public class UserClient extends BaseClient {
 
@@ -40,19 +38,6 @@ public class UserClient extends BaseClient {
     }
 
     /**
-     * Create one user
-     * @param indexOfUser - user's index in TestUserData.json file
-     * @return server response
-     */
-    public Response createUser(int indexOfUser){
-        ReadJson readJson = new ReadJson();
-        return prepareRequest()
-                .body(readJson.getUser(indexOfUser))
-                .urlEncodingEnabled(false)
-                .post("/{entity}");
-    }
-
-    /**
      * Create new user
      * @param userModel
      * @return
@@ -61,18 +46,6 @@ public class UserClient extends BaseClient {
         return prepareRequest()
                 .body(userModel)
                 .post("/{entity}");
-    }
-
-    /**
-     * Create array of users
-     * @return server response
-     */
-    public Response createUserArray(){
-        ReadJson readJson = new ReadJson();
-        return prepareRequest()
-                .body(readJson.getArrayOfUsers())
-                .urlEncodingEnabled(false)
-                .post("/{entity}/createWithArray");
     }
 
     public Response deleteByUsername(String username) {
