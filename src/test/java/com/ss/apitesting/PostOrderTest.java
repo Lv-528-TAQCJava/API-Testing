@@ -1,8 +1,10 @@
 package com.ss.apitesting;
 
+import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -23,9 +25,10 @@ public class PostOrderTest {
     @Test
     public void orderFindByIdTest() {
         StoreClient storeClient = new StoreClient("json");
-        Response response = storeClient.getById("10");
 
-        response.then().body("status", is("placed"));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById("7"));
+        assertion.defaultAsserts()
+                .bodyValueEquals("status", "placed");
 
     }
 
@@ -37,7 +40,6 @@ public class PostOrderTest {
         System.out.println("Current datetime: " + dateStr);
 
         StoreClient storeClient = new StoreClient("json");
-        //StoreModel storeModel = new StoreModel(id, petId, quantity, dateStr, status, complete);
         StoreModel storeModel = OrderBuilder.orderWith()
                 .id(id)
                 .petId(petId)
@@ -49,12 +51,12 @@ public class PostOrderTest {
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
-        storeClient.getById(Integer.toString(id)).then()
-                .statusCode(200)
-                .body("status", is(storeModel.status))
-                .body("petId", is(storeModel.petId))
-                .body("quantity", is(storeModel.quantity))
-                .body("complete", is(storeModel.complete));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById(Integer.toString(id)));
+        assertion.defaultAsserts()
+                .bodyValueEquals("status", storeModel.status)
+                .bodyValueEquals("petId", storeModel.petId)
+                .bodyValueEquals("quantity", storeModel.quantity)
+                .bodyValueEquals("complete", storeModel.complete);
 
         storeClient.deleteById(Integer.toString(id)); //clean up
     }

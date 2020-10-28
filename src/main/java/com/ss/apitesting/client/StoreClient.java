@@ -46,19 +46,4 @@ public class StoreClient extends BaseClient {
                 .post("/{entity}");
     }
 
-    /**
-     * Provides JSON string for postOrder method parameter
-     */
-    public String prepareOrder(int id, int petId, int quantity,
-                               String shipDate, String status, Boolean complete) {
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("id", Integer.toString(id));
-        requestParams.put("petId", Integer.toString(petId));
-        requestParams.put("quantity", Integer.toString(quantity));
-        requestParams.put("shipDate", shipDate);
-        requestParams.put("status", status);
-        requestParams.put("complete", complete);
-
-        return requestParams.toJSONString();
-    }
 }

@@ -1,5 +1,6 @@
 package com.ss.apitesting.petTest;
 
+import com.ss.apitesting.assertion.ArrayAssertion;
 import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
@@ -25,8 +26,10 @@ public class GetPetByStatusTest {
 
     @Test
     public void getPetByValidStatusTest(){
-        Response response = petClient.getPetByStatus("available");
-        response.then().body("status.size()", greaterThan(0));
+        ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus("available"));
+        assertion.defaultAsserts()
+                .bodyArraySizeGreater("status", 0)
+                .bodyArrayEquals("status", "available");
 
     }
 
