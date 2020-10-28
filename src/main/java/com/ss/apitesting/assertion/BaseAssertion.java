@@ -3,8 +3,8 @@ package com.ss.apitesting.assertion;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.contains;
+
+import static org.hamcrest.Matchers.*;
 
 public class BaseAssertion {
     protected ValidatableResponse response;
@@ -41,8 +41,11 @@ public class BaseAssertion {
         return this;
     }
 
+    /**
+     * Use only this for XML comparison
+     */
     public BaseAssertion bodyValueEquals(String bodyParameter, String expectedValue) {
-        response.body(bodyParameter, is(expectedValue));
+        response.body(bodyParameter, equalTo(expectedValue));
         return this;
     }
 

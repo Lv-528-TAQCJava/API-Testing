@@ -5,6 +5,7 @@ import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -54,13 +55,17 @@ public class GetOrderTest {
     @Test
     public void orderFindByIdXmlTest() {
         StoreClient storeClientXml = new StoreClient("XML");
-        BaseAssertion assertion = new BaseAssertion(
-                storeClientXml.getById(orderId)
-        );
+
+        Response response = storeClientXml.getById(orderId);
+        BaseAssertion assertion = new BaseAssertion(response);
+
         assertion.statusCode(200)
                 .contentType(ContentType.XML)
-                .bodyValueEquals("id", orderId)
-                .bodyValueEquals("status", status);
+                .bodyValueEquals("order.id", String.valueOf(orderId)) //Mind these!
+                        // 1. You need to specify the path
+                        // 2. You need to provide the second parameter as string!
+                .bodyValueEquals("order.status", status);
+
     }
 
     @Test
