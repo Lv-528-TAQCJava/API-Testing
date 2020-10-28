@@ -36,6 +36,7 @@ public abstract class BaseClient {
         return given()
                 .baseUri(BASE_URL)
                 .contentType(contentType)
+                .accept(contentType) //By default it doesn't accept response in the same content type
                 .pathParam("entity", entity) //just write /{entity}/ instead of /pet/, /store/ etc. in your requests
                 .urlEncodingEnabled(false); //allows passing special characters (slash, in particular) as a parameter
     }
