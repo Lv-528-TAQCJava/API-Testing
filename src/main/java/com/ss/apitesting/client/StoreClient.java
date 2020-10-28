@@ -30,14 +30,6 @@ public class StoreClient extends BaseClient {
                 .delete("/{entity}/{id}");
     }
 
-    @Deprecated
-    public Response postOrder(String requestBody) {
-        return prepareRequest()
-                .body(requestBody)
-                .urlEncodingEnabled(false)
-                .post("/{entity}");
-    }
-
     public Response postOrder(StoreModel storeModel) {
         return prepareRequest()
                 .body(storeModel)

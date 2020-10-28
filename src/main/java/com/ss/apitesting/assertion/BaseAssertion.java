@@ -24,7 +24,7 @@ public class BaseAssertion {
     }
 
     /**
-     * Asserts status code and content type
+     * Asserts status code (200) and content type (JSON)
      */
     public BaseAssertion defaultAsserts() {
         return statusCode(200)

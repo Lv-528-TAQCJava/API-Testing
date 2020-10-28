@@ -38,7 +38,7 @@ public class GetOrderTest {
 
     @AfterClass
     public void removeOrder() {
-        StoreClient storeClient = new StoreClient("json");
+        storeClient = new StoreClient("json");
         storeClient.deleteById(orderId);
     }
 
@@ -62,8 +62,8 @@ public class GetOrderTest {
         assertion.statusCode(200)
                 .contentType(ContentType.XML)
                 .bodyValueEquals("order.id", String.valueOf(orderId)) //Mind these!
-                        // 1. You need to specify the path
-                        // 2. You need to provide the second parameter as string!
+                    // 1. You need to specify the XML path, not simply the parameter name
+                    // 2. You need to provide the second parameter as string!
                 .bodyValueEquals("order.status", status);
 
     }
