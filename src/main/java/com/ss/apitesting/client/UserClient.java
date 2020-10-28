@@ -2,21 +2,14 @@ package com.ss.apitesting.client;
 
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.models.user.UserModel;
-import com.ss.apitesting.util.ValuesGenerator;
-import com.sun.codemodel.JForEach;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-
-import javax.jws.soap.SOAPBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
-import static java.net.HttpURLConnection.HTTP_OK;
 
 public class UserClient extends BaseClient {
 
@@ -35,9 +28,8 @@ public class UserClient extends BaseClient {
     }
 
     /**
-     *
-     * @param username Allows find user vy username (for POST functionality)
-     * @return
+     * @param username Allows find user by username (for POST functionality)
+     * @return response
      */
     public Response getByUsername(String username) {
         return prepareRequest()
@@ -63,18 +55,13 @@ public class UserClient extends BaseClient {
                 .get("/{entity}/logout");
     }
 
-    /**
-     * Create new user
-     * @param userModel
-     * @return
-     */
     public Response createNewUser(UserModel userModel) {
         return prepareRequest()
                 .body(userModel)
                 .post("/{entity}");
     }
 
-    public Response createUserArray(List<UserModel> userList){
+    public Response createUserList(List<UserModel> userList){
         return prepareRequest()
                 .body(userList)
                 .post("/{entity}/createWithArray");
@@ -101,7 +88,7 @@ public class UserClient extends BaseClient {
         return userModel;
     }
 
-    public List<UserModel> createUserList(int numberOfUser){
+    public List<UserModel> createListOfUsers(int numberOfUser){
         List<UserModel> userList= new ArrayList<>();
         for(int i = 0; i < numberOfUser; i++){
             userList.add(createUserData());

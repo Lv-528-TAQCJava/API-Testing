@@ -34,7 +34,6 @@ public class CreateUserTest {
                 assertion.statusCode(200);
             }
         }
-
     }
 
     @Test
@@ -46,33 +45,9 @@ public class CreateUserTest {
 
     @Test
     public void createArrayOfUsersWithValidData(){
-        userList = userClient.createUserList(2);
-        BaseAssertion assertion = new BaseAssertion(userClient.createUserArray(userList));
+        userList = userClient.createListOfUsers(2);
+        BaseAssertion assertion = new BaseAssertion(userClient.createUserList(userList));
         assertion.statusCode(200);
     }
 
-
-
-
-
-
-
-
-/*    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-        generateUser = new GenerateUser();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void deleteUserByUsername() {
-        BaseAssertion assertion = new BaseAssertion(userClient.deleteByUsername(generateUser.getUserName()));
-        assertion.statusCode(200);
-    }
-
-    @Test
-    public void createUserWithValidData(){
-        BaseAssertion assertion = new BaseAssertion(userClient.createNewUser(generateUser.createUserData()));
-        assertion.bodyValueEquals("code", 200);
-    }*/
 }
