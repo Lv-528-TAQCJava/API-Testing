@@ -1,16 +1,17 @@
 package com.ss.apitesting.petTest;
 
+import com.ss.apitesting.assertion.PetAssertions;
+import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.models.pet.PetModel;
+import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.Matchers.is;
 
 @Epic("Operation with pets tests")
 @Feature("Get pet test suite")
@@ -22,39 +23,28 @@ public class GetPetTest {
         petClient = new PetClient(ContentType.JSON);
     }
 
-    protected int findFreeID() {
-        int id = 0;
-        Response getPet;
-        do {
-            id++;
-            getPet = petClient.getById("" + id);
-        } while(getPet.statusCode() != 404);
-        return id;
-    }
-
-    @Ignore //TODO JSONDataProvider is removed, rewrite tests
     @Test
-    public void petGetByExistingId() {
+    public void petGetByExistingIdTest() {
         // Precondition
-        int freeId = findFreeID();
-        //petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "catto", "sold"));
+        int id = ValuesGenerator.generateId(1000, 10000);
+        PetModel pet = PetBuilder.petWith().id(id).name("Catty").status("available").build();
+        petClient.createPet(pet);
 
         // Getting pet
-        Response response = petClient.getById("" + freeId);
-        response.then().body("name", is("catto"));
-        response.then().body("status", is("sold"));
+        PetAssertions.assertBodyEquals(petClient.getById(String.valueOf(id)), pet);
 
         // Remove temporary pet
-        petClient.deleteById("" + freeId);
+        petClient.deleteById(String.valueOf(id));
     }
 
     @Test
     public void petGetByNonexistentId() {
         // Precondition
-        int freeId = findFreeID();
+        int id = -1;
+        petClient.deleteById(String.valueOf(id));
 
         // Getting pet
-        int getResult = petClient.getById("" + freeId).statusCode();
+        int getResult = petClient.getById(String.valueOf(id)).statusCode();
         Assert.assertEquals(getResult, 404);
     }
 

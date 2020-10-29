@@ -1,13 +1,17 @@
 package com.ss.apitesting.petTest;
 
+import com.ss.apitesting.assertion.PetAssertions;
+import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.models.pet.PetModel;
+import com.ss.apitesting.models.pet.Tag;
+import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
@@ -15,96 +19,47 @@ import org.testng.annotations.Test;
 @Ignore //TODO JSONDataProvider is removed, rewrite tests
 public class AddPetTest {
     protected PetClient petClient;
+    private int suitableId;
 
     @BeforeClass
     public void init() {
         petClient = new PetClient(ContentType.JSON);
+        suitableId = ValuesGenerator.generateId(1000, 10000);
     }
 
-    protected int findFreeID() {
-        int id = 0;
-        Response getPet;
-        do {
-            id++;
-            getPet = petClient.getById("" + id);
-        } while (getPet.statusCode() != 404);
-        return id;
+    @DataProvider(name = "addingPetsData")
+    public Object[][] data() {
+        return new Object [][] {
+                {
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").build()
+                },
+                {
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").photoUrls(new String[0]).build()
+                },
+                {
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").tags(new Tag[0]).build()
+                },
+                {
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").category(null).build()
+                },
+                {
+                        PetBuilder.petWith().id(suitableId).name("").status("").build()
+                }
+        };
     }
 
-    protected int findOccupiedID() {
-        int id = 0;
-        Response getPet;
-        do {
-            id++;
-            getPet = petClient.getById("" + id);
-        } while (getPet.statusCode() != 200);
-        return id;
-    }
-
-
-    @Test
-    public void testAddValidPet() {
+    @Test(dataProvider = "addingPetsData")
+    public void testAddPet(PetModel pet) {
         // Precondition
-        int freeId = findFreeID();
+        petClient.deleteById(String.valueOf(pet.petId));
 
-        // Adding pet
-        //petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "doggo", "available"));
-        int creatingStatus = petClient.getById("" + freeId).getStatusCode();
-        Assert.assertEquals(creatingStatus, 200);
+        // Adding pets
+        int POSTstatus = petClient.createPet(pet).statusCode();
+        Assert.assertEquals(POSTstatus, 200);
 
-        // Remove added pet
-        petClient.deleteById("" + freeId);
-    }
+        PetAssertions.assertBodyEquals(petClient.getById(String.valueOf(pet.petId)), pet);
 
-    @Test
-    public void testAddUnnamedPet() {
-        // Precondition
-        int freeId = findFreeID();
-
-        // Adding pet
-        //petClient.createPet(JSONDataProvider.getPetInJSON("" + freeId, "", "available"));
-        int creatingStatus = petClient.getById("" + freeId).getStatusCode();
-        Assert.assertEquals(creatingStatus, 200);
-
-        // Remove added pet
-        petClient.deleteById("" + freeId);
-    }
-
-    // Why we can add pet with existing ID?
-    @Test
-    public void testAddPetWithExistingId() {
-        // Precondition
-        int occupiedId = findOccupiedID();
-
-        // Adding pet
-        //int creatingStatus = petClient.createPet
-        //        (JSONDataProvider.getPetInJSON("" + occupiedId, "temp", "available"))
-        //        .statusCode();
-        //Assert.assertEquals(creatingStatus, 200);
-
-        // Remove added pet
-        petClient.deleteById("" + occupiedId);
-    }
-
-    @Test
-    public void testAddPetWithInvalidId() {
-        // Precondition
-        String invalidId = "188888888888888888888888888";
-
-        // Adding pet
-        //int addingResult = petClient.createPet(JSONDataProvider.getPetInJSON(invalidId, "dog", "sold"))
-        //        .statusCode();
-        //Assert.assertEquals(addingResult, 500);
-    }
-
-    @Test
-    public void testAddPetWithNonDigitId() {
-        // Precondition
-        String nonDigitId = "\"eee\"";
-
-        // Adding pet
-        //int addingResult = petClient.createPet(JSONDataProvider.getPetInJSON(nonDigitId, "dog", "available"))
-        //        .statusCode();
-        //Assert.assertEquals(addingResult, 500);
+        // Post condition
+        petClient.deleteById(String.valueOf(pet.petId));
     }
 }

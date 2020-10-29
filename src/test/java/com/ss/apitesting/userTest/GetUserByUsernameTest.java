@@ -2,6 +2,8 @@ package com.ss.apitesting.userTest;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.UserClient;
+import io.restassured.response.Response;
+import org.testng.annotations.Ignore;
 import com.ss.apitesting.models.user.UserModel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
