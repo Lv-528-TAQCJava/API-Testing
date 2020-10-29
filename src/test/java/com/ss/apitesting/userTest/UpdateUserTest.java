@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.Matchers.is;
 
-@Ignore
 public class UpdateUserTest {
     private UserModel userModel;
     private String userName;

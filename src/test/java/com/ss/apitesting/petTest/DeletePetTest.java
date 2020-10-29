@@ -7,12 +7,10 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
-@Ignore
 public class DeletePetTest {
     protected PetClient petClient;
     private PetModel petModel;

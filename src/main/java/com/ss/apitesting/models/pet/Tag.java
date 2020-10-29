@@ -37,4 +37,16 @@ public class Tag {
                 .toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Tag)) {
+            return false;
+        }
+        Tag t = (Tag) obj;
+
+        return id.equals(t.id) && name.equals(t.name);
+    }
 }

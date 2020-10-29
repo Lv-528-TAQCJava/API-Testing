@@ -12,7 +12,6 @@ import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 
-@Ignore
 public class PostOrderTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {

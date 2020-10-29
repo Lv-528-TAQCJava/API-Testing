@@ -42,10 +42,10 @@ public class PetClient extends BaseClient {
         Map<String, String> formParams = new HashMap<String, String>();
         formParams.put("name", pet.name);
         formParams.put("status", pet.status);
-        // TODO find a way to put not null values into map
 
         return prepareRequest()
                 .formParams(formParams)
+                .contentType(ContentType.URLENC)
                 .pathParam("petId", pet.petId)
                 .post("/{entity}/{petId}");
     }

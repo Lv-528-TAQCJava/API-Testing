@@ -37,4 +37,17 @@ public class Category {
                 .toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Category)) {
+            return false;
+        }
+        Category c = (Category) obj;
+
+        return id.equals(c.id) && name.equals(c.name);
+    }
+
 }
