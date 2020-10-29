@@ -26,7 +26,7 @@ public class PostOrderTest {
     public void orderFindByIdTest() {
         StoreClient storeClient = new StoreClient("json");
 
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById("7"));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById(7));
         assertion.defaultAsserts()
                 .bodyValueEquals("status", "placed");
 
@@ -51,13 +51,13 @@ public class PostOrderTest {
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById(Integer.toString(id)));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById(id));
         assertion.defaultAsserts()
                 .bodyValueEquals("status", storeModel.status)
                 .bodyValueEquals("petId", storeModel.petId)
                 .bodyValueEquals("quantity", storeModel.quantity)
                 .bodyValueEquals("complete", storeModel.complete);
 
-        storeClient.deleteById(Integer.toString(id)); //clean up
+        storeClient.deleteById(id); //clean up
     }
 }
