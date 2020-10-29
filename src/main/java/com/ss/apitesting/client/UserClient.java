@@ -87,6 +87,20 @@ public class UserClient extends BaseClient {
         return userModel;
     }
 
+    public UserModel createUserWithoutPassword() {
+        int userId = generateId();
+        UserModel userModel = UserBuilder.userWith()
+                .id(userId)
+                .username("Username" + userId)
+                .firstname("User" + userId + "firstname")
+                .lastname("User" + userId + "lastname")
+                .email("User" + userId + "@gmail.com")
+                .phone("+380" + RandomStringUtils.randomAlphabetic(9))
+                .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
+                .build();
+        return userModel;
+    }
+
     public List<UserModel> createListOfUsers(int numberOfUser){
         List<UserModel> userList= new ArrayList<>();
         for(int i = 0; i < numberOfUser; i++){

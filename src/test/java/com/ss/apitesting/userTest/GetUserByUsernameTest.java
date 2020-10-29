@@ -28,7 +28,15 @@ public class GetUserByUsernameTest {
         userClient.createNewUser(user);
 
         BaseAssertion assertion = new BaseAssertion(userClient.getByUsername(user.username));
-        assertion.defaultAsserts().bodyValueEquals("username", user.username);
+        assertion.defaultAsserts()
+                .bodyValueEquals("id", user.id)
+                .bodyValueEquals("username", user.username)
+                .bodyValueEquals("firstName", user.firstname)
+                .bodyValueEquals("lastName", user.lastname)
+                .bodyValueEquals("email", user.email)
+                .bodyValueEquals("password", user.password)
+                .bodyValueEquals("phone", user.phone)
+                .bodyValueEquals("userStatus", user.userStatus);
 
         userClient.deleteByUsername(user.username).then().statusCode(200);
     }

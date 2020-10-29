@@ -55,4 +55,13 @@ public class CreateUserTest {
         assertion.statusCode(200);
     }
 
+    @Test(description = "Create user without password")
+    public void createUserWithoutPasswordTest(){
+        user = userClient.createUserWithoutPassword();
+        BaseAssertion assertion = new BaseAssertion(userClient.createNewUser(user));
+        assertion.defaultAsserts();
+        BaseAssertion bodyAssertion = new BaseAssertion(userClient.getByUsername(user.username));
+        bodyAssertion.defaultAsserts().bodyValueEquals("password", "string");
+    }
+
 }
