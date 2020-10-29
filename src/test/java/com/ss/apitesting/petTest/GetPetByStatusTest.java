@@ -2,11 +2,16 @@ package com.ss.apitesting.petTest;
 
 import com.ss.apitesting.assertion.ArrayAssertion;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.models.pet.PetModel;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
+@Epic("Operation with pets tests")
+@Feature("Get pet by status test suite")
 public class GetPetByStatusTest {
     protected PetClient petClient;
 

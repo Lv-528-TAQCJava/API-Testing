@@ -5,12 +5,16 @@ import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.util.ValuesGenerator;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
+@Epic("Operation with pets tests")
+@Feature("Get pet test suite")
 public class GetPetTest {
     protected PetClient petClient;
 
