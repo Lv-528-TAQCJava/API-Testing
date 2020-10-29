@@ -4,14 +4,18 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
-import static com.ss.apitesting.util.ValuesGenerator.generateId;
+import static com.ss.apitesting.util.ValuesGenerator.*;
+import static org.hamcrest.Matchers.is;
 
-
+@Epic("Access to Petstore orders tests")
+@Feature("Post order test suite")
 public class PostOrderTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
@@ -19,17 +23,6 @@ public class PostOrderTest {
                 {5, 1, "placed", false},
                 {66, 0, "ordered", true}
         };
-    }
-
-    //TODO move to GetOrderTest or remove
-    @Test
-    public void orderFindByIdTest() {
-        StoreClient storeClient = new StoreClient("json");
-
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById("7"));
-        assertion.defaultAsserts()
-                .bodyValueEquals("status", "placed");
-
     }
 
     @Test(dataProvider = "postValues")
@@ -51,13 +44,13 @@ public class PostOrderTest {
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
-        BaseAssertion assertion = new BaseAssertion(storeClient.getById(Integer.toString(id)));
+        BaseAssertion assertion = new BaseAssertion(storeClient.getById(id));
         assertion.defaultAsserts()
                 .bodyValueEquals("status", storeModel.status)
                 .bodyValueEquals("petId", storeModel.petId)
                 .bodyValueEquals("quantity", storeModel.quantity)
                 .bodyValueEquals("complete", storeModel.complete);
 
-        storeClient.deleteById(Integer.toString(id)); //clean up
+        storeClient.deleteById(id); //clean up
     }
 }

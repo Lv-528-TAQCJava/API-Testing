@@ -12,6 +12,7 @@ import io.restassured.http.ContentType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
