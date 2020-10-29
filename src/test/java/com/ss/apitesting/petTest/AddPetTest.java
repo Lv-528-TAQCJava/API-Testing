@@ -1,6 +1,8 @@
 package com.ss.apitesting.petTest;
 
 import com.ss.apitesting.client.PetClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -8,6 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Epic("Operation with pets tests")
+@Feature("Add pet test suite")
 @Ignore //TODO JSONDataProvider is removed, rewrite tests
 public class AddPetTest {
     protected PetClient petClient;

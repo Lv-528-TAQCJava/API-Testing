@@ -4,6 +4,8 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
@@ -12,6 +14,8 @@ import org.testng.annotations.Test;
 
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
+@Epic("Access to Petstore orders tests")
+@Feature("Get order test suite")
 public class GetOrderTest {
     private int orderId;
     StoreClient storeClient;
