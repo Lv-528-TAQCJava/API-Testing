@@ -8,9 +8,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static com.ss.apitesting.util.ValuesGenerator.*;
 import static org.hamcrest.Matchers.is;
@@ -19,26 +17,39 @@ import static org.hamcrest.Matchers.is;
 @Feature("Post order test suite")
 public class PostOrderTest {
     private Logger log;
+    private StoreClient storeClient;
+
+    private int id;
+    private String dateStr;
+
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
                 {5, 1, "placed", false},
-                {66, 0, "ordered", true}
+                {66, 0, "ordered", true},
+                {-20, -3, "negative", false},
         };
     }
 
     @BeforeClass
-    public void setLog() {
+    public void init() {
         log = LoggerFactory.getLogger("PostOrderTest");
+        storeClient = new StoreClient("json");
+    }
+    @BeforeMethod
+    public void generateValues() {
+        id = generateId(); //from range [100, 999]
+        dateStr = generateDateString();
+    }
+    @AfterMethod
+    public void deleteOrder() {
+        storeClient.deleteById(id); //clean up
     }
 
     @Test(dataProvider = "postValues")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
-        int id = generateId(); //from range [100, 999]
-        String dateStr = generateDateString();
         log.debug("Starting orderPostTest with generated ID = " + id + ", datetime = " + dateStr);
 
-        StoreClient storeClient = new StoreClient("json");
         StoreModel storeModel = OrderBuilder.orderWith()
                 .id(id)
                 .petId(petId)
@@ -56,7 +67,5 @@ public class PostOrderTest {
                 .bodyValueEquals("petId", storeModel.petId)
                 .bodyValueEquals("quantity", storeModel.quantity)
                 .bodyValueEquals("complete", storeModel.complete);
-
-        storeClient.deleteById(id); //clean up
     }
 }
