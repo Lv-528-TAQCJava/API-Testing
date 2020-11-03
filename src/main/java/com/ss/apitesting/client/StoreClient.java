@@ -23,6 +23,7 @@ public class StoreClient extends BaseClient {
     }
 
     public Response getById(String id) {
+        log.debug("GET order with ID = " + id);
         return prepareRequest()
                 .pathParam("id", id)
                 .get("/{entity}/{id}");
@@ -33,12 +34,14 @@ public class StoreClient extends BaseClient {
     }
 
     public Response deleteById(String id) {
+        log.debug("DELETE order with ID = " + id);
         return prepareRequest()
                 .pathParam("id", id)
                 .delete("/{entity}/{id}");
     }
 
     public Response postOrder(StoreModel storeModel) {
+        log.debug("POST order with parameters:\n\t\t" + storeModel.toString());
         return prepareRequest()
                 .body(storeModel)
                 .urlEncodingEnabled(false)

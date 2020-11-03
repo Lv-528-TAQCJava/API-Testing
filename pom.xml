@@ -101,6 +101,8 @@
             <systemPropertyVariables>
               <allure.results.directory>target/allure-results</allure.results.directory>
             </systemPropertyVariables>
+            <parallel>methods</parallel>
+            <threadCount>4</threadCount>
           </configuration>
           <dependencies>
             <dependency>
