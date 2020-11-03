@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+    <!--    scan="true" allows automatic reconfiguration each minute -->
+    <property name="FULL_PATH" value="D:\\Boris\\SS\\Курси\\API-Testing" />
+    <!-- Substitute your full path to the project here ^ -->
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FULL_PATH}/logs/apitesting.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${FULL_PATH}\logs\apitesting_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <maxFileSize>100KB</maxFileSize>
+            <maxHistory>8</maxHistory>
+            <totalSizeCap>2MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppender"/>
+    </root>
+</configuration>

@@ -1,5 +1,7 @@
 package com.ss.apitesting.order;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.util.StatusPrinter;
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
@@ -32,7 +34,8 @@ public class GetOrderTest {
     @BeforeClass
     public void createOrder() {
         log = LoggerFactory.getLogger("GetOrderTest");
-        log.debug("Creating a temporary order for GET tests");
+//        StatusPrinter.print((LoggerContext) LoggerFactory.getILoggerFactory());
+        log.info("Creating a temporary order for GET tests");
 
         orderId = generateId(); //from range [100, 999]
 
@@ -49,12 +52,14 @@ public class GetOrderTest {
 
     @AfterClass
     public void removeOrder() {
+        log.info("Deleting a temporary order used in GET tests");
         storeClient = new StoreClient("json");
         storeClient.deleteById(orderId);
     }
 
     @Test
     public void orderFindByIdTest() {
+        log.debug("Starting orderFindByIdTest");
         BaseAssertion assertion = new BaseAssertion(
                 storeClient.getById(orderId)
         );
@@ -65,6 +70,7 @@ public class GetOrderTest {
 
     @Test
     public void orderFindByIdXmlTest() {
+        log.debug("Starting orderFindByIdXmlTest");
         StoreClient storeClientXml = new StoreClient("XML");
 
         Response response = storeClientXml.getById(orderId);
@@ -81,7 +87,9 @@ public class GetOrderTest {
 
     @Test
     public void orderFindByNotExistingIdTest() {
+        log.debug("Starting orderFindByIdTest");
         int notExistingId = generateId(100000, 9999999);
+        log.debug("Generated not existing ID: " + notExistingId);
         BaseAssertion assertion = new BaseAssertion(
                 storeClient.getById(notExistingId)
         );
@@ -96,6 +104,7 @@ public class GetOrderTest {
 
     @Test
     public void orderFindByZeroIdTest() {
+        log.debug("Starting orderFindByZeroIdTest");
         BaseAssertion assertion = new BaseAssertion(
                 storeClient.getById(0)
         );
@@ -104,23 +113,25 @@ public class GetOrderTest {
 
     @Test
     public void orderFindByNegativeIdTest() {
+        log.debug("Starting orderFindByNegativeIdTest");
         int negativeId = generateId(-999, -1);
+        log.debug("Generated negative ID: " + negativeId);
         BaseAssertion assertion = new BaseAssertion(
                 storeClient.getById(negativeId)
         );
         assertion.statusCode(404); //maybe another 4** status code is more suitable
     }
 
-    /* Could not be tested using storeClient.getById
     @Test
     public void orderFindByDecimalIdTest() {
-        float notId = 123.4f;
+        log.debug("Starting orderFindByDecimalIdTest");
+        String notId = "123.4";
         BaseAssertion assertion = new BaseAssertion(
                 storeClient.getById(notId)
         );
         assertion.bodyValueContains("message", "Exception");
         //will be something like <message>java.lang.NumberFormatException: For input string: "123.4"</message>
     }
-    */
+
 
 }
