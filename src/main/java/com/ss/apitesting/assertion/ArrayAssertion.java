@@ -1,11 +1,12 @@
 package com.ss.apitesting.assertion;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import java.util.List;
+
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-
-import java.util.List;
 
 public class ArrayAssertion extends BaseAssertion {
     Response responseSimple;
@@ -25,6 +26,16 @@ public class ArrayAssertion extends BaseAssertion {
         return (ArrayAssertion) super.defaultAsserts();
     }
 
+    @Override
+    public ArrayAssertion statusCode(int httpStatus) {
+        return (ArrayAssertion) super.statusCode(httpStatus);
+    }
+
+    @Override
+    public ArrayAssertion contentType(ContentType type) {
+        return (ArrayAssertion) super.contentType(type);
+    }
+
     /**
      * Asserts that all values in an array equal the expected string value.
      * Use when you get an array of entities,
@@ -32,7 +43,7 @@ public class ArrayAssertion extends BaseAssertion {
      * @param bodyParameter - an array field in response body
      * @param expectedValue - a string to compare each response array element with
      */
-    public ArrayAssertion bodyArrayEquals(String bodyParameter, String expectedValue) {
+    public ArrayAssertion bodyArrayAllEquals(String bodyParameter, String expectedValue) {
         List<String> list = getBodyArrayValue(bodyParameter);
         for (String actual: list) {
             Assert.assertEquals(actual, expectedValue); //or better SoftAssert?
@@ -47,11 +58,22 @@ public class ArrayAssertion extends BaseAssertion {
      * @param bodyParameter - an array field in response body
      * @param expectedValue - a string to compare each response array element with
      */
-    public ArrayAssertion bodyArrayContains(String bodyParameter, String expectedValue) {
+    public ArrayAssertion bodyArrayAllContains(String bodyParameter, String expectedValue) {
         List<String> list = getBodyArrayValue(bodyParameter);
         for (String actual: list) {
             Assert.assertTrue(actual.contains(expectedValue));
         }
+        return this;
+    }
+
+    public ArrayAssertion bodyArrayContains(String bodyParameter, String expectedValue) {
+        List<String> list = getBodyArrayValue(bodyParameter);
+        for (String actual: list) {
+            if(actual.equals(expectedValue)) {
+                return this;
+            }
+        }
+        Assert.fail();
         return this;
     }
 

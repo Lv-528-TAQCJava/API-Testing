@@ -21,7 +21,6 @@ import static org.hamcrest.Matchers.is;
 @Feature("Update user test suite")
 public class UpdateUserTest {
     private UserModel userModel;
-    private String userName;
     private UserClient userClient;
 
     @BeforeClass(alwaysRun = true)
@@ -43,9 +42,8 @@ public class UpdateUserTest {
     }
 
     @AfterMethod
-    public  void deleteUser() {
-        userClient.deleteByUsername(userName);
-        userName = null;
+    public void deleteUser() {
+        userClient.deleteByUsername(userModel.username);
     }
 
 

@@ -19,12 +19,20 @@ public class StoreClient extends BaseClient {
     }
 
     public Response getById(int id) {
+        return getById(String.valueOf(id));
+    }
+
+    public Response getById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
                 .get("/{entity}/{id}");
     }
 
     public Response deleteById(int id) {
+        return deleteById(String.valueOf(id));
+    }
+
+    public Response deleteById(String id) {
         return prepareRequest()
                 .pathParam("id", id)
                 .delete("/{entity}/{id}");

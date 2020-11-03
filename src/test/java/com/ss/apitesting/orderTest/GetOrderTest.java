@@ -11,12 +11,16 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 @Epic("Access to Petstore orders tests")
 @Feature("Get order test suite")
 public class GetOrderTest {
+    private Logger log;
+
     private int orderId;
     StoreClient storeClient;
 
@@ -27,6 +31,9 @@ public class GetOrderTest {
 
     @BeforeClass
     public void createOrder() {
+        log = LoggerFactory.getLogger("GetOrderTest");
+        log.debug("Creating a temporary order for GET tests");
+
         orderId = generateId(); //from range [100, 999]
 
         storeClient = new StoreClient("json");

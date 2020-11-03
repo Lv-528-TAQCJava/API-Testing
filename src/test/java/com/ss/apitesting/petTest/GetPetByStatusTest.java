@@ -26,7 +26,7 @@ public class GetPetByStatusTest {
         ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus("available"));
         assertion.defaultAsserts()
                 .bodyArrayNotEmpty("status")
-                .bodyArrayEquals("status", "available");
+                .bodyArrayAllEquals("status", "available");
 
     }
 
@@ -41,7 +41,7 @@ public class GetPetByStatusTest {
     public void getPetByEmptyStatusTest(){
         ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus(""));
         assertion.defaultAsserts()
-                .bodyArrayEmpty("status");
+                .bodyArrayEmpty("status"); //Now fails, one pet with empty tag <status/> exists
     }
 
 }
