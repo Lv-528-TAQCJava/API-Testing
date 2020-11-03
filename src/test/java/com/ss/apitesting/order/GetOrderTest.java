@@ -34,7 +34,6 @@ public class GetOrderTest {
     @BeforeClass
     public void createOrder() {
         log = LoggerFactory.getLogger("GetOrderTest");
-//        StatusPrinter.print((LoggerContext) LoggerFactory.getILoggerFactory());
         log.info("Creating a temporary order for GET tests");
 
         orderId = generateId(); //from range [100, 999]
@@ -60,9 +59,8 @@ public class GetOrderTest {
     @Test
     public void orderFindByIdTest() {
         log.debug("Starting orderFindByIdTest");
-        BaseAssertion assertion = new BaseAssertion(
-                storeClient.getById(orderId)
-        );
+        Response response = storeClient.getById(orderId);
+        BaseAssertion assertion = new BaseAssertion(response);
         assertion.defaultAsserts()
                 .bodyValueEquals("id", orderId)
                 .bodyValueEquals("status", status);
@@ -90,24 +88,21 @@ public class GetOrderTest {
         log.debug("Starting orderFindByIdTest");
         int notExistingId = generateId(100000, 9999999);
         log.debug("Generated not existing ID: " + notExistingId);
-        BaseAssertion assertion = new BaseAssertion(
-                storeClient.getById(notExistingId)
-        );
+        Response response = storeClient.getById(notExistingId);
+        BaseAssertion assertion = new BaseAssertion(response);
         assertion.statusCode(404);
 
         StoreClient storeClientXml = new StoreClient("xml");
-        assertion = new BaseAssertion(
-                storeClientXml.getById(notExistingId)
-        );
+        response = storeClientXml.getById(notExistingId);
+        assertion = new BaseAssertion(response);
         assertion.statusCode(404);
     }
 
     @Test
     public void orderFindByZeroIdTest() {
         log.debug("Starting orderFindByZeroIdTest");
-        BaseAssertion assertion = new BaseAssertion(
-                storeClient.getById(0)
-        );
+        Response response = storeClient.getById(0);
+        BaseAssertion assertion = new BaseAssertion(response);
         assertion.statusCode(404);
     }
 
@@ -116,9 +111,8 @@ public class GetOrderTest {
         log.debug("Starting orderFindByNegativeIdTest");
         int negativeId = generateId(-999, -1);
         log.debug("Generated negative ID: " + negativeId);
-        BaseAssertion assertion = new BaseAssertion(
-                storeClient.getById(negativeId)
-        );
+        Response response = storeClient.getById(negativeId);
+        BaseAssertion assertion = new BaseAssertion(response);
         assertion.statusCode(404); //maybe another 4** status code is more suitable
     }
 
@@ -126,9 +120,8 @@ public class GetOrderTest {
     public void orderFindByDecimalIdTest() {
         log.debug("Starting orderFindByDecimalIdTest");
         String notId = "123.4";
-        BaseAssertion assertion = new BaseAssertion(
-                storeClient.getById(notId)
-        );
+        Response response = storeClient.getById(notId);
+        BaseAssertion assertion = new BaseAssertion(response);
         assertion.bodyValueContains("message", "Exception");
         //will be something like <message>java.lang.NumberFormatException: For input string: "123.4"</message>
     }

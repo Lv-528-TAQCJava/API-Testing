@@ -6,6 +6,9 @@ import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,6 +18,7 @@ import static org.hamcrest.Matchers.is;
 @Epic("Access to Petstore orders tests")
 @Feature("Post order test suite")
 public class PostOrderTest {
+    private Logger log;
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
@@ -23,12 +27,16 @@ public class PostOrderTest {
         };
     }
 
+    @BeforeClass
+    public void setLog() {
+        log = LoggerFactory.getLogger("PostOrderTest");
+    }
+
     @Test(dataProvider = "postValues")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
         int id = generateId(); //from range [100, 999]
-        System.out.println("Using ID: " + id);
         String dateStr = generateDateString();
-        System.out.println("Current datetime: " + dateStr);
+        log.debug("Starting orderPostTest with generated ID = " + id + ", datetime = " + dateStr);
 
         StoreClient storeClient = new StoreClient("json");
         StoreModel storeModel = OrderBuilder.orderWith()
