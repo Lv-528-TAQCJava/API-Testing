@@ -1,6 +1,7 @@
 package com.ss.apitesting.client;
 
 import com.ss.apitesting.models.order.StoreModel;
+import com.ss.apitesting.models.order.StoreModelString;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -41,6 +42,14 @@ public class StoreClient extends BaseClient {
     }
 
     public Response postOrder(StoreModel storeModel) {
+        log.debug("POST order with parameters:\n\t\t" + storeModel.toString());
+        return prepareRequest()
+                .body(storeModel)
+                .urlEncodingEnabled(false)
+                .post("/{entity}");
+    }
+
+    public Response postOrder(StoreModelString storeModel) {
         log.debug("POST order with parameters:\n\t\t" + storeModel.toString());
         return prepareRequest()
                 .body(storeModel)
