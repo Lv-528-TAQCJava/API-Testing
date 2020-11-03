@@ -1,4 +1,4 @@
-package com.ss.apitesting.userTest;
+package com.ss.apitesting.user;
 
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
@@ -11,7 +11,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static java.net.HttpURLConnection.HTTP_OK;

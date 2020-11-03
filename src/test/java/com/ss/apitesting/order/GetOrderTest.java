@@ -1,4 +1,4 @@
-package com.ss.apitesting.orderTest;
+package com.ss.apitesting.order;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;

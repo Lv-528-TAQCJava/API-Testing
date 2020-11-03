@@ -1,4 +1,4 @@
-package com.ss.apitesting.userTest;
+package com.ss.apitesting.user;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.UserClient;

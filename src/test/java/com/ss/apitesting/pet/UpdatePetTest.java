@@ -1,4 +1,4 @@
-package com.ss.apitesting.petTest;
+package com.ss.apitesting.pet;
 
 import com.ss.apitesting.assertion.PetAssertions;
 import com.ss.apitesting.builder.PetBuilder;
@@ -19,7 +19,7 @@ public class UpdatePetTest {
 
     @BeforeClass
     public void init() {
-        suitableId = ValuesGenerator.generateId(1000, 10000);;
+        suitableId = ValuesGenerator.generateId(1000, 10000);
         petClient = new PetClient(ContentType.JSON);
     }
 

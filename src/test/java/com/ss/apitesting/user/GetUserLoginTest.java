@@ -1,4 +1,4 @@
-package com.ss.apitesting.userTest;
+package com.ss.apitesting.user;
 
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
@@ -16,11 +16,10 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 @Epic("Operation about user tests")
-@Feature("Delete user test suite")
-public class DeleteUserTest {
+@Feature("Get user login test suite")
+public class GetUserLoginTest {
     private UserModel userModel;
     private UserClient userClient;
-
     @BeforeClass(alwaysRun = true)
     public void init() {
         userClient = new UserClient(ContentType.JSON);
@@ -40,15 +39,27 @@ public class DeleteUserTest {
     }
 
     @Test
-    public void deleteUserTest() {
-        Response response = userClient.deleteByUsername(userModel.username);
+    public void getUserLoginTest() {
+        Response response = userClient.getUserLogin(userModel.username, userModel.password);
+        System.out.println(response.getContentType() + " " + response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), HTTP_OK);
+        response.then().contentType(ContentType.JSON);
     }
 
     @Test
-    public void deleteUserWithInvalidUsernameTest() {
-        Response response = userClient.deleteByUsername("user1");
+    public void getUserLoginInvalidPasswordTest() {
+        Response response = userClient.getUserLogin(userModel.username, "111111");
+        System.out.println(response.getStatusCode() + " " + response.getContentType());
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        Assert.assertEquals(response.getContentType(), "");
+        response.then().contentType(ContentType.JSON);
     }
+
+    @Test
+    public void getUserLoginInvalidUsernameTest() {
+        Response response = userClient.getUserLogin("someInvalidUsername", userModel.password);
+        System.out.println(response.getStatusCode() + " " + response.getContentType());
+        Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
+        response.then().contentType(ContentType.JSON);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.ss.apitesting.petTest;
+package com.ss.apitesting.pet;
 
 import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;

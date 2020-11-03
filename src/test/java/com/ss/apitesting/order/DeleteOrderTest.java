@@ -1,4 +1,4 @@
-package com.ss.apitesting.orderTest;
+package com.ss.apitesting.order;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
@@ -7,7 +7,6 @@ import com.ss.apitesting.models.order.StoreModel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

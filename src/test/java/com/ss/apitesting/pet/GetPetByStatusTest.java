@@ -1,8 +1,7 @@
-package com.ss.apitesting.petTest;
+package com.ss.apitesting.pet;
 
 import com.ss.apitesting.assertion.ArrayAssertion;
 import com.ss.apitesting.client.PetClient;
-import com.ss.apitesting.models.pet.PetModel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;

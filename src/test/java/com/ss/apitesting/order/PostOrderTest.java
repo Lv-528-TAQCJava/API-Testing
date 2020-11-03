@@ -1,4 +1,4 @@
-package com.ss.apitesting.orderTest;
+package com.ss.apitesting.order;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
@@ -6,8 +6,6 @@ import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
