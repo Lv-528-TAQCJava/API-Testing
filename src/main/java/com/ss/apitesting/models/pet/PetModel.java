@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Arrays;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
@@ -16,22 +18,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class PetModel {
 
-    @JsonProperty("id")
-    public Integer petId;
-    @JsonProperty("category")
+    public Integer id;
     public Category category;
-    @JsonProperty("name")
     public String name;
-    @JsonProperty("photoUrls")
     public String[] photoUrls;
-    @JsonProperty("tags")
     public Tag[] tags;
-    @JsonProperty("status")
     public String status;
 
-    public PetModel(Integer petId, Category category, String name, String[] photoUrls, Tag[] tags, String status) {
+    public PetModel(Integer id, Category category, String name, String[] photoUrls, Tag[] tags, String status) {
         super();
-        this.petId = petId;
+        this.id = id;
         this.category = category;
         this.name = name;
         this.photoUrls = photoUrls;
@@ -41,8 +37,8 @@ public class PetModel {
 
     public PetModel() {
         super();
-        this.petId = 0;
-        this.category = new Category();
+        this.id = 0;
+        this.category = null;
         this.name = "default";
         this.photoUrls = new String[] {"default"};
         this.tags = new Tag[] {new Tag()};
@@ -52,7 +48,7 @@ public class PetModel {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("id", petId)
+                .append("id", id)
                 .append("category", category)
                 .append("name", name)
                 .append("photoUrls", photoUrls)
@@ -61,4 +57,30 @@ public class PetModel {
                 .toString();
     }
 
+    public static boolean equals(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+
+        if (!(a instanceof PetModel)) {
+            return false;
+        }
+
+        return a == null? false : a.equals(b);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PetModel)) {
+            return false;
+        }
+        PetModel p = (PetModel) obj;
+
+        return id.equals(p.id) && name.equals(p.name)
+                && Category.equals(category, p.category) && status.equals(p.status)
+                && Arrays.equals(photoUrls, p.photoUrls) && Arrays.equals(tags, tags);
+    }
 }

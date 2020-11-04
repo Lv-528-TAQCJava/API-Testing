@@ -37,6 +37,18 @@ public class Tag {
                 .toString();
     }
 
+    public static boolean equals(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+
+        if (!(a instanceof Tag)) {
+            return false;
+        }
+
+        return a == null? false : a.equals(b);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

@@ -31,7 +31,7 @@ public class DeletePetTest {
                 .tags(null)
                 .build();
         petClient.createNewPet(petModel);
-        Response response = petClient.getById(String.valueOf(petModel.petId));
+        Response response = petClient.getById(String.valueOf(petModel.id));
         Assert.assertEquals(response.getStatusCode(),HTTP_OK, "Error - pet has not been created");
     }
 
@@ -47,7 +47,7 @@ public class DeletePetTest {
 
     @Test
     public void deletePetTest(){
-        Response response = petClient.deleteById(String.valueOf(petModel.petId));
+        Response response = petClient.deleteById(String.valueOf(petModel.id));
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 

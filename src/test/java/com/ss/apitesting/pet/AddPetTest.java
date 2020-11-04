@@ -12,12 +12,10 @@ import io.restassured.http.ContentType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Add pet test suite")
-@Ignore //TODO JSONDataProvider is removed, rewrite tests
 public class AddPetTest {
     protected PetClient petClient;
     private int suitableId;
@@ -38,7 +36,7 @@ public class AddPetTest {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").photoUrls(new String[0]).build()
                 },
                 {
-                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").tags(new Tag[0]).build()
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").tags(null).build()
                 },
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").category(null).build()
@@ -52,15 +50,15 @@ public class AddPetTest {
     @Test(dataProvider = "addingPetsData")
     public void testAddPet(PetModel pet) {
         // Precondition
-        petClient.deleteById(String.valueOf(pet.petId));
+        petClient.deleteById(String.valueOf(pet.id));
 
         // Adding pets
         int POSTstatus = petClient.createPet(pet).statusCode();
         Assert.assertEquals(POSTstatus, 200);
 
-        PetAssertions.assertBodyEquals(petClient.getById(String.valueOf(pet.petId)), pet);
+        PetAssertions.assertBodyEquals(petClient.getById(String.valueOf(pet.id)), pet);
 
         // Post condition
-        petClient.deleteById(String.valueOf(pet.petId));
+        petClient.deleteById(String.valueOf(pet.id));
     }
 }

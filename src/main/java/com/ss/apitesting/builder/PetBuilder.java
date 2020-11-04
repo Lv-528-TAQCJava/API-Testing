@@ -25,7 +25,7 @@ public class PetBuilder {
     }
 
     public PetBuilder id(Integer id) {
-        pet.petId = id;
+        pet.id = id;
         return this;
     }
 
