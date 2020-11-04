@@ -47,7 +47,7 @@ public class DeleteUserTest {
 
     @Test
     public void deleteUserWithInvalidUsernameTest() {
-        Response response = userClient.deleteByUsername("user1");
+        Response response = userClient.deleteByUsername("111");
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
         Assert.assertEquals(response.getContentType(), "");
     }

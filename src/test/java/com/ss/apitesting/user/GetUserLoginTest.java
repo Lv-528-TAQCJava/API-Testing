@@ -61,5 +61,13 @@ public class GetUserLoginTest {
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
         response.then().contentType(ContentType.JSON);
     }
+    @Test
+    public void getUserLoginInvalidCredentialsTest() {
+        Response response = userClient.getUserLogin("someInvalidUsername", "someInvalidPassword");
+        System.out.println(response.getStatusCode() + " " + response.getContentType());
+        Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
+        response.then().contentType(ContentType.JSON);
+    }
+
 
 }
