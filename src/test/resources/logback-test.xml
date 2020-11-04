@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true" scan="true">
     <!--    scan="true" allows automatic reconfiguration each minute -->
-    <property name="FULL_PATH" value="D:\\Boris\\SS\\Курси\\API-Testing" />
+    <property name="FULL_PATH" value="C:\\Users\\Користувач\\IdeaProjects\\API-TAQC\\API-Testing" />
     <!-- Substitute your full path to the project here ^ -->
 
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
