@@ -1,10 +1,11 @@
-package com.ss.apitesting.order;
+package com.ss.apitesting.order.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import com.ss.apitesting.models.order.StoreModelString;
+import com.ss.apitesting.order.OrderTestRunner;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -18,13 +19,7 @@ import static org.hamcrest.Matchers.is;
 
 @Epic("Access to Petstore orders tests")
 @Feature("Post order test suite")
-public class PostOrderTest {
-    private Logger log;
-    private StoreClient storeClient;
-
-    private int id;
-    private String dateStr;
-
+public class PostOrderPositiveTest extends OrderTestRunner {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
@@ -43,37 +38,19 @@ public class PostOrderTest {
         };
     }
 
-    @DataProvider(name = "postInvalidValues")
-    public static Object[][] postInvalidValues() {
-        return new Object[][]{
-                {"vasia", "1", "placed", "false"},
-                {"66", "zero", "ordered", "true"},
-                {"20", "3", "placed", "FALSE"},
-                {"20", "3.14", "decimal", "true"}
-        };
-    }
-
-    @BeforeClass
-    public void init() {
-        log = LoggerFactory.getLogger("PostOrderTest");
-        storeClient = new StoreClient("json");
-    }
     @BeforeMethod
-    public void generateValues() {
-        id = generateId(); //from range [100, 999]
+    @Override
+    public void createOrder() {
+        orderId = generateId(); //from range [100, 999]
         dateStr = generateDateString();
-    }
-    @AfterMethod
-    public void deleteOrder() {
-        storeClient.deleteById(id); //clean up
     }
 
     @Test(dataProvider = "postValues")
     public void orderPostTest(int petId, int quantity, String status, Boolean complete) {
-        log.debug("Starting orderPostTest with generated ID = " + id + ", datetime = " + dateStr);
+        log.debug("Starting orderPostTest with generated ID = " + orderId + ", datetime = " + dateStr);
 
         StoreModel storeModel = OrderBuilder.orderWith()
-                .id(id)
+                .id(orderId)
                 .petId(petId)
                 .quantity(quantity)
                 .shipDate(dateStr)
@@ -83,7 +60,7 @@ public class PostOrderTest {
         storeClient.postOrder(storeModel).then()
                 .statusCode(200);
 
-        Response posted = storeClient.getById(id);
+        Response posted = storeClient.getById(orderId);
         BaseAssertion assertion = new BaseAssertion(posted);
         assertion.defaultAsserts()
                 .bodyValueEquals("status", storeModel.status)
@@ -96,10 +73,10 @@ public class PostOrderTest {
 
     @Test(dataProvider = "postStringValues")
     public void orderPostStringValuesTest(String petId, String quantity, String status, String complete) {
-        log.debug("Starting orderPostStringValuesTest with generated ID = " + id + ", datetime = " + dateStr);
+        log.debug("Starting orderPostStringValuesTest with generated ID = " + orderId + ", datetime = " + dateStr);
 
         StoreModelString storeModelString = OrderBuilder.orderWith()
-                .idString(String.valueOf(id))
+                .idString(String.valueOf(orderId))
                 .petIdString(petId)
                 .quantityString(quantity)
                 .shipDate(dateStr)
@@ -109,7 +86,7 @@ public class PostOrderTest {
         storeClient.postOrder(storeModelString).then()
                 .statusCode(200);
 
-        Response posted = storeClient.getById(id);
+        Response posted = storeClient.getById(orderId);
         BaseAssertion assertion = new BaseAssertion(posted);
         assertion.defaultAsserts()
                 .bodyValueEquals("status", storeModelString.status)
@@ -118,24 +95,5 @@ public class PostOrderTest {
                 .bodyValueEquals("complete", Boolean.valueOf(storeModelString.complete));
     }
 
-    @Test(dataProvider = "postInvalidValues")
-    public void orderPostInvalidValuesTest(String petId, String quantity, String status, String complete) {
-        log.debug("Starting orderPostInvalidValuesTest with generated ID = " + id + ", datetime = " + dateStr);
 
-        StoreModelString storeModelString = OrderBuilder.orderWith()
-                .idString(String.valueOf(id))
-                .petIdString(petId)
-                .quantityString(quantity)
-                .shipDate(dateStr)
-                .status(status)
-                .completeString(complete)
-                .buildString();
-        storeClient.postOrder(storeModelString).then()
-                .statusCode(500);
-
-        Response posted = storeClient.getById(id);
-        BaseAssertion assertion = new BaseAssertion(posted);
-        assertion.contentType(ContentType.JSON)
-                .statusCode(404);
-    }
 }
