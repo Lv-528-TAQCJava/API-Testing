@@ -24,7 +24,7 @@ public class PetBuilder {
         return new PetBuilder();
     }
 
-    public PetBuilder id(Integer id) {
+    public PetBuilder id(Long id) {
         pet.id = id;
         return this;
     }

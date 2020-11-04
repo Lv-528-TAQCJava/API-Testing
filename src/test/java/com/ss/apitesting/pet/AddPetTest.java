@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 @Feature("Add pet test suite")
 public class AddPetTest {
     protected PetClient petClient;
-    private int suitableId;
+    private long suitableId;
 
     @BeforeClass
     public void init() {
