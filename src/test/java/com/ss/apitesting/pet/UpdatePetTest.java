@@ -56,9 +56,9 @@ public class UpdatePetTest {
         petClient.updatePet(petParams);
 
         // Verify that update was successful
-        Response response = petClient.getById(String.valueOf(initialPet.petId));
+        Response response = petClient.getById(String.valueOf(initialPet.id));
         PetAssertions.assertBodyEquals(response, expectedPet);
 
-        petClient.deleteById(String.valueOf(initialPet.petId));
+        petClient.deleteById(String.valueOf(initialPet.id));
     }
 }

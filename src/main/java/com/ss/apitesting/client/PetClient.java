@@ -46,7 +46,7 @@ public class PetClient extends BaseClient {
         return prepareRequest()
                 .formParams(formParams)
                 .contentType(ContentType.URLENC)
-                .pathParam("petId", pet.petId)
+                .pathParam("petId", pet.id)
                 .post("/{entity}/{petId}");
     }
 

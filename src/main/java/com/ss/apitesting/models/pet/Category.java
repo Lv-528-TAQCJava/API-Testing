@@ -37,6 +37,18 @@ public class Category {
                 .toString();
     }
 
+    public static boolean equals(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+
+        if (!(a instanceof Category)) {
+            return false;
+        }
+
+        return a == null? false : a.equals(b);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
