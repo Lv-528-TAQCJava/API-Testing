@@ -1,9 +1,6 @@
 package com.ss.apitesting.assertion;
 
-import com.ss.apitesting.models.pet.Category;
 import com.ss.apitesting.models.pet.PetModel;
-import com.ss.apitesting.models.pet.Tag;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
 

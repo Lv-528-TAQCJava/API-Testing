@@ -1,5 +1,6 @@
 package com.ss.apitesting.client;
 import com.ss.apitesting.models.pet.PetModel;
+import com.ss.apitesting.models.pet.StringPetModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.*;
 
@@ -39,6 +40,23 @@ public class PetClient extends BaseClient {
      * @return result of POST request
      */
     public Response updatePet(PetModel pet) {
+        Map<String, String> formParams = new HashMap<String, String>();
+        formParams.put("name", pet.name);
+        formParams.put("status", pet.status);
+
+        return prepareRequest()
+                .formParams(formParams)
+                .contentType(ContentType.URLENC)
+                .pathParam("petId", pet.id)
+                .post("/{entity}/{petId}");
+    }
+
+    /**
+     * Updates name and status of pet, selected by pet's Id(as string)
+     * @param pet a pet to update
+     * @return result of POST request
+     */
+    public Response updatePet(StringPetModel pet) {
         Map<String, String> formParams = new HashMap<String, String>();
         formParams.put("name", pet.name);
         formParams.put("status", pet.status);

@@ -18,14 +18,14 @@ import java.util.Arrays;
 })
 public class PetModel {
 
-    public Integer id;
+    public Long id;
     public Category category;
     public String name;
     public String[] photoUrls;
     public Tag[] tags;
     public String status;
 
-    public PetModel(Integer id, Category category, String name, String[] photoUrls, Tag[] tags, String status) {
+    public PetModel(Long id, Category category, String name, String[] photoUrls, Tag[] tags, String status) {
         super();
         this.id = id;
         this.category = category;
@@ -37,7 +37,7 @@ public class PetModel {
 
     public PetModel() {
         super();
-        this.id = 0;
+        this.id = 0L;
         this.category = null;
         this.name = "default";
         this.photoUrls = new String[] {"default"};
