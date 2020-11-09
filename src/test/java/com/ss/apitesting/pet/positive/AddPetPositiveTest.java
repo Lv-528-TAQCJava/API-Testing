@@ -5,6 +5,7 @@ import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.models.pet.Tag;
+import com.ss.apitesting.pet.PetBaseTest;
 import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -16,16 +17,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Add pet positive test suite")
-public class AddPetPositiveTest {
-    protected PetClient petClient;
-    private long suitableId;
-
-    @BeforeClass
-    public void init() {
-        petClient = new PetClient(ContentType.JSON);
-        suitableId = ValuesGenerator.generateId(1000, 10000);
-    }
-
+public class AddPetPositiveTest extends PetBaseTest {
     @DataProvider(name = "addingPetsData")
     public Object[][] data() {
         return new Object [][] {

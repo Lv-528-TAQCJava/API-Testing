@@ -11,15 +11,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Get pet by status test suite")
-public class GetPetByStatusTest {
-    protected PetClient petClient;
-
-
-    @BeforeClass
-    public void init() {
-        petClient = new PetClient(ContentType.JSON);
-    }
-
+public class GetPetByStatusTest extends PetBaseTest {
     @Test
     public void getPetByValidStatusTest(){
         ArrayAssertion assertion = new ArrayAssertion(petClient.getPetByStatus("available"));
