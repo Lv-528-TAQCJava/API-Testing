@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.util;
 
 import org.testng.ITestListener;
 import org.testng.ITestResult;

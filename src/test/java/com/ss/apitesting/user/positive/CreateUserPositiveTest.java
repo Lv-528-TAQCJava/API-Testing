@@ -4,6 +4,7 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -14,14 +15,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation about user tests")
 @Feature("Create user positive test suite")
-public class CreateUserPositiveTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
-
+public class CreateUserPositiveTest extends UserBaseTest {
     @DataProvider(name = "users")
     public Object[][] data() {
         return new Object[][]{

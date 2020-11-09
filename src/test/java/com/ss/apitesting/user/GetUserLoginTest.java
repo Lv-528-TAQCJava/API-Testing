@@ -17,26 +17,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 @Epic("Operation about user tests")
 @Feature("Get user login test suite")
-public class GetUserLoginTest {
-    private UserModel userModel;
-    private UserClient userClient;
-    @BeforeClass(alwaysRun = true)
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-        userModel = UserBuilder.userWith()
-                .id(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
-                .username(RandomStringUtils.randomAlphabetic(6))
-                .firstname(RandomStringUtils.randomAlphabetic(6))
-                .lastname(RandomStringUtils.randomAlphabetic(6))
-                .email(RandomStringUtils.randomAlphabetic(6) + "@gmail.com")
-                .password(RandomStringUtils.randomAlphanumeric(6))
-                .phone("+" + RandomStringUtils.randomAlphabetic(10))
-                .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
-                .build();
-        userClient.createNewUser(userModel);
-        Response response = userClient.getByUsername(userModel.username);
-        Assert.assertEquals(response.getStatusCode(),HTTP_OK, "Error - user has not been created");
-    }
+public class GetUserLoginTest extends UserBaseTest {
 
     @Test
     public void getUserLoginTest() {

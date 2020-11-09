@@ -5,6 +5,7 @@ import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -15,14 +16,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation about user tests")
 @Feature("Delete user positive test suite")
-public class DeleteUserPositiveTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
-
+public class DeleteUserPositiveTest extends UserBaseTest {
     @DataProvider(name = "deleteUser")
     public Object[][] data() {
         return new Object[][]{

@@ -15,6 +15,7 @@ public abstract class PetBaseTest extends BaseTest {
         return "PetTest";
     }
 
+    @Override
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();

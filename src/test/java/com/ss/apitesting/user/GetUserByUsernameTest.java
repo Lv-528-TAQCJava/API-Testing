@@ -11,16 +11,9 @@ import org.testng.annotations.Test;
 
 @Epic("Operation about user tests")
 @Feature("Get user by username test suite")
-public class GetUserByUsernameTest {
-
-    protected UserClient userClient;
+public class GetUserByUsernameTest extends UserBaseTest {
     private UserModel user;
     private final String invalidUsername = "invalidUser";
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
 
     @Test(description = "Get user with existing username")
     public void getUserByValidUsernameTest(){
