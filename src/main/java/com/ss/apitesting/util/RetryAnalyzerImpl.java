@@ -1,4 +1,4 @@
-package com.ss.apitesting;
+package com.ss.apitesting.util;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

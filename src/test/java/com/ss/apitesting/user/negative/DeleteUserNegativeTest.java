@@ -2,6 +2,7 @@ package com.ss.apitesting.user.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.UserClient;
+import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -12,14 +13,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation about user tests")
 @Feature("Delete user negative test suite")
-public class DeleteUserNegativeTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
-
+public class DeleteUserNegativeTest extends UserBaseTest {
     @Test
     public void deleteNonexistent() {
         userClient.deleteByUsername("undefined");

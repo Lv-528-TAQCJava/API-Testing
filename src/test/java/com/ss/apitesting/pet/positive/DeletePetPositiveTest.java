@@ -4,6 +4,7 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
+import com.ss.apitesting.pet.PetBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -14,15 +15,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Delete pet positive test suite")
-public class DeletePetPositiveTest {
-
-    protected PetClient petClient;
-
-    @BeforeClass
-    public void init() {
-        petClient = new PetClient(ContentType.JSON);
-    }
-
+public class DeletePetPositiveTest extends PetBaseTest {
     @DataProvider(name = "deletingPet")
     public Object[][] data() {
         return new Object [][] {

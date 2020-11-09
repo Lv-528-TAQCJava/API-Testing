@@ -15,15 +15,13 @@ import java.util.List;
 
 @Epic("Operation about user tests")
 @Feature("Create user test suite")
-public class CreateUserTest {
+public class CreateUserTest extends UserBaseTest {
 
-    protected UserClient userClient;
     private List<UserModel> userList;
     private UserModel user;
 
     @BeforeMethod
     public void init() {
-        userClient = new UserClient(ContentType.JSON);
         userList = new ArrayList<>();
         user = new UserModel();
     }
