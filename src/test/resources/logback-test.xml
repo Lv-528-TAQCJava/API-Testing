@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true" scan="true">
+    <!--    debug="true" outputs logs for Logback itself -->
     <!--    scan="true" allows automatic reconfiguration each minute -->
-    <property name="FULL_PATH" value="C:\\Users\\Користувач\\IdeaProjects\\API-TAQC\\API-Testing" />
-    <!-- Substitute your full path to the project here ^ -->
 
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -12,10 +11,11 @@
     </appender>
 
     <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${FULL_PATH}/logs/apitesting.log</file>
+        <file>${user.dir}\target\logs\apitesting.log</file>
+        <!--   user.dir is the project directory (where from it was started)    -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${FULL_PATH}\logs\apitesting_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${user.dir}\target\logs\apitesting_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
             <maxFileSize>100KB</maxFileSize>
             <maxHistory>8</maxHistory>
