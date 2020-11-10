@@ -4,37 +4,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.ss.apitesting.models.pet.Category;
+import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.models.pet.Tag;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "id",
-        "username",
-        "firstname",
-        "lastname",
-        "email",
-        "password",
-        "phone",
-        "userStatus"
-})
+import java.util.Arrays;
+
 public class UserModel {
 
-    @JsonProperty("id")
     public Integer id;
-    @JsonProperty("username")
     public String username;
-    @JsonProperty("firstname")
     public String firstname;
-    @JsonProperty("lastname")
     public String lastname;
-    @JsonProperty("email")
     public String email;
-    @JsonProperty("password")
     public String password;
-    @JsonProperty("phone")
     public String phone;
-    @JsonProperty("userStatus")
     public Integer userStatus;
 
     @Override
@@ -73,6 +57,33 @@ public class UserModel {
         this.password = "string";
         this.phone = "string";
         this.userStatus = 0;
+    }
+    public static boolean equals(Object a, Object b) {
+        if (a == b) {
+            return true;
+        }
+
+        if (!(a instanceof UserModel)) {
+            return false;
+        }
+
+        return a == null? false : a.equals(b);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof UserModel)) {
+            return false;
+        }
+        UserModel u = (UserModel) obj;
+
+        return id.equals(u.id) && username.equals(u.username)
+                && firstname.equals(firstname) && lastname.equals(lastname)
+                && email.equals(email) && password.equals(u.password)
+                && phone.equals(u.phone) && userStatus.equals(u.userStatus);
     }
 
     public void setId(Integer id) {
