@@ -57,7 +57,7 @@ public class GetPetNegativeTest {
     public void getPetByInvalidId(String id) {
         Response invalidResponse = petClient.getById(id);
         BaseAssertion invalidAssertion = new BaseAssertion(invalidResponse);
-        invalidAssertion.statusCode(500);
+        invalidAssertion.statusCode(404);
     }
 
     @Test

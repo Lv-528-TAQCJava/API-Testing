@@ -16,7 +16,7 @@ import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 @Epic("Access to Petstore orders tests")
-@Feature("Post order test suite")
+@Feature("Post order positive test suite")
 public class PostOrderPositiveTest extends OrderBaseTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {

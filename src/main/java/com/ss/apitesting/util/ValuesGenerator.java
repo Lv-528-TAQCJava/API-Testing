@@ -8,6 +8,8 @@ import java.util.Random;
  * Helps generating IDs, dates etc. for POST/PUT requests
  */
 public class ValuesGenerator {
+
+    private static Random generator = new Random();
     /**
      * Generates an integer ID in given range
      * @param min - minimal value (inclusive)
@@ -15,9 +17,7 @@ public class ValuesGenerator {
      * @return an ID from range [min, max-1]
      */
     public static int generateId(int min, int max) {
-        Random rand = new Random();
-
-        return rand.nextInt(max-min) + min;
+        return generator.nextInt(max-min) + min;
     }
 
     /**
@@ -39,7 +39,7 @@ public class ValuesGenerator {
      * Generates current date in predefined format
      */
     public static String generateDateString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"); //2020-10-17T17:08:20.912Z
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date date = generateDate();
         return formatter.format(date);
     }

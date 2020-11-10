@@ -10,7 +10,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 @Epic("Access to Petstore orders tests")
-@Feature("Get order test suite")
+@Feature("Get order positive test suite")
 public class GetOrderPositiveTest extends OrderBaseTest {
     @Test
     public void orderFindByIdTest() {

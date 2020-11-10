@@ -9,8 +9,9 @@ import org.testng.annotations.Test;
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 @Epic("Access to Petstore orders tests")
-@Feature("Delete order test suite")
+@Feature("Delete order positive test suite")
 public class DeleteOrderPositiveTest extends OrderBaseTest {
+
     @Test
     public void deleteOrderTest() {
         BaseAssertion assertion = new BaseAssertion(
