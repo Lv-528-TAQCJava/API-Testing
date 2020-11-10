@@ -6,26 +6,28 @@ import org.testng.ITestResult;
 public class TestNgListeners implements ITestListener {
 
     @Override
-    public void onTestFailure(ITestResult Result)
+    public void onTestFailure(ITestResult result)
     {
-        System.out.println("The name of the testcase failed is :"+Result.getName());
+        System.out.println("The name of the testcase failed is :"+result.getName());
     }
 
     @Override
-    public void onTestSkipped(ITestResult Result)
+    public void onTestSkipped(ITestResult result)
     {
-        System.out.println("The name of the testcase Skipped is :"+Result.getName());
+        System.out.println("The name of the testcase Skipped is :"+result.getName());
     }
 
     @Override
-    public void onTestStart(ITestResult Result)
+    public void onTestStart(ITestResult result)
     {
-        System.out.println(Result.getName()+" test case started");
+        System.out.println(result.getName()+" test case started");
     }
 
     @Override
-    public void onTestSuccess(ITestResult Result)
+    public void onTestSuccess(ITestResult result)
     {
-        System.out.println("The name of the testcase passed is :"+Result.getName());
+        System.out.println("The name of the testcase passed is :"+result.getName());
     }
+
+
 }
