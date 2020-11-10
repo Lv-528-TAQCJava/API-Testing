@@ -2,6 +2,7 @@ package com.ss.apitesting.pet.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.util.RetryAnalyzerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -52,11 +53,11 @@ public class GetPetNegativeTest {
         };
     }
 
-    @Test(dataProvider = "invalidIds")
+    @Test(dataProvider = "invalidIds", retryAnalyzer = RetryAnalyzerImpl.class)
     public void getPetByInvalidId(String id) {
         Response invalidResponse = petClient.getById(id);
         BaseAssertion invalidAssertion = new BaseAssertion(invalidResponse);
-        invalidAssertion.statusCode(500);
+        invalidAssertion.statusCode(404);
     }
 
     @Test

@@ -5,24 +5,21 @@ import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
 @Epic("Operation about user tests")
 @Feature("Delete user positive test suite")
-public class DeleteUserPositiveTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
-
+public class DeleteUserPositiveTest extends UserBaseTest {
     @DataProvider(name = "deleteUser")
     public Object[][] data() {
         return new Object[][]{
@@ -51,5 +48,11 @@ public class DeleteUserPositiveTest {
         Response given = userClient.getByUsername(user.username);
         BaseAssertion assertGetting = new BaseAssertion(given);
         assertGetting.statusCode(404);
+    }
+
+    @Test
+    public void deleteUserTest() {
+        Response response = userClient.deleteByUsername(userModel.username);
+        Assert.assertEquals(response.getStatusCode(), HTTP_OK);
     }
 }

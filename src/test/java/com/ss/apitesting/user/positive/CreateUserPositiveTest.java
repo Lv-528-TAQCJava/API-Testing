@@ -2,26 +2,17 @@ package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.UserBuilder;
-import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Epic("Operation about user tests")
 @Feature("Create user positive test suite")
-public class CreateUserPositiveTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
-
+public class CreateUserPositiveTest extends UserBaseTest {
     @DataProvider(name = "users")
     public Object[][] data() {
         return new Object[][]{
@@ -55,5 +46,12 @@ public class CreateUserPositiveTest {
         Response given = userClient.getByUsername(user.username);
         BaseAssertion assertGetting = new BaseAssertion(given);
         assertGetting.statusCode(200);
+    }
+
+    @Test(description = "Create user with valid data")
+    public void createUserWithValidData(){
+        userModel = userClient.createUserData();
+        BaseAssertion assertion = new BaseAssertion(userClient.createNewUser(userModel));
+        assertion.statusCode(200);
     }
 }

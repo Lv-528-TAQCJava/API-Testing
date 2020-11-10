@@ -1,28 +1,31 @@
 package com.ss.apitesting.user;
 
+import com.ss.apitesting.BaseTest;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-@Epic("Operation about user tests")
-@Feature("Delete user test suite")
-public class DeleteUserTest {
-    private UserModel userModel;
-    private UserClient userClient;
+public class UserBaseTest extends BaseTest {
+    protected UserClient userClient;
+    protected UserModel userModel;
 
-    @BeforeClass(alwaysRun = true)
-    public void init() {
+    @Override
+    protected String getLoggerName() {
+        return "UserTest";
+    }
+
+    @Override
+    @BeforeClass
+    public void beforeClass() {
+        super.beforeClass();
         userClient = new UserClient(ContentType.JSON);
         userModel = UserBuilder.userWith()
                 .id(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
@@ -36,19 +39,11 @@ public class DeleteUserTest {
                 .build();
         userClient.createNewUser(userModel);
         Response response = userClient.getByUsername(userModel.username);
-        Assert.assertEquals(response.getStatusCode(),HTTP_OK, "Error - user has not been created");
+        Assert.assertEquals(response.getStatusCode(), HTTP_OK, "Error - user has not been created");
     }
 
-    @Test
-    public void deleteUserTest() {
-        Response response = userClient.deleteByUsername(userModel.username);
-        Assert.assertEquals(response.getStatusCode(), HTTP_OK);
-    }
-
-    @Test
-    public void deleteUserWithInvalidUsernameTest() {
-        Response response = userClient.deleteByUsername("111");
-        Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        Assert.assertEquals(response.getContentType(), "");
+    @AfterClass
+    public void clearUp() {
+        userClient.deleteByUsername(userModel.username);
     }
 }

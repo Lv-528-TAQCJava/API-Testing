@@ -63,5 +63,4 @@ public class StoreModelString {
                 .append("complete", complete)
                 .toString();
     }
-
 }

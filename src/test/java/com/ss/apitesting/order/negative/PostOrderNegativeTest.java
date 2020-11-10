@@ -3,10 +3,11 @@ package com.ss.apitesting.order.negative;
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.models.order.StoreModelString;
-import com.ss.apitesting.order.OrderTestRunner;
+import com.ss.apitesting.order.OrderBaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,7 +15,9 @@ import org.testng.annotations.Test;
 import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
-public class PostOrderNegativeTest extends OrderTestRunner {
+@Epic("Access to Petstore orders tests")
+@Feature("Post order negative test suite")
+public class PostOrderNegativeTest extends OrderBaseTest {
     @DataProvider(name = "postInvalidValues")
     public static Object[][] postInvalidValues() {
         return new Object[][]{
@@ -28,7 +31,7 @@ public class PostOrderNegativeTest extends OrderTestRunner {
     @BeforeMethod
     @Override
     public void createOrder() {
-        orderId = generateId(); //from range [100, 999]
+        orderId = generateId(100, 999);
         dateStr = generateDateString();
     }
 

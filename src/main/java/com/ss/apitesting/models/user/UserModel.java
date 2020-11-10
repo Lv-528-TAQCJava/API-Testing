@@ -34,6 +34,7 @@ public class UserModel {
                 .append("userStatus", userStatus)
                 .toString();
     }
+
     public UserModel(Integer id, String username, String firstname, String lastname, String email,
                      String password, String phone, Integer userStatus) {
         super();

@@ -1,5 +1,6 @@
 package com.ss.apitesting.order;
 
+import com.ss.apitesting.BaseTest;
 import com.ss.apitesting.builder.OrderBuilder;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
@@ -13,9 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
-public abstract class OrderTestRunner {
-    protected Logger log;
-
+public abstract class OrderBaseTest extends BaseTest {
     protected int orderId;
     protected String dateStr;
     protected StoreClient storeClient;
@@ -25,9 +24,14 @@ public abstract class OrderTestRunner {
     protected final String status = "available";
     protected final boolean complete = false;
 
+    @Override
+    protected String getLoggerName() {
+        return "OrderTest";
+    }
+
     @BeforeClass
-    public void init() {
-        log = LoggerFactory.getLogger("OrderTest");
+    public void beforeClass() {
+        super.beforeClass();
         storeClient = new StoreClient("json");
     }
 

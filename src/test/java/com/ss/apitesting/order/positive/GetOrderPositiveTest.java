@@ -2,7 +2,7 @@ package com.ss.apitesting.order.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.StoreClient;
-import com.ss.apitesting.order.OrderTestRunner;
+import com.ss.apitesting.order.OrderBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -10,8 +10,8 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 @Epic("Access to Petstore orders tests")
-@Feature("Get order test suite")
-public class GetOrderPositiveTest extends OrderTestRunner {
+@Feature("Get order positive test suite")
+public class GetOrderPositiveTest extends OrderBaseTest {
     @Test
     public void orderFindByIdTest() {
         log.debug("Starting orderFindByIdTest");

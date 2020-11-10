@@ -8,11 +8,16 @@ import org.slf4j.LoggerFactory;
 import static io.restassured.RestAssured.given;
 
 public abstract class BaseClient {
-    public final static String BASE_URL = "https://petstore.swagger.io/v2";
+    public static final String BASE_URL = "https://petstore.swagger.io/v2";
     public final ContentType contentType;
-    public final String entity; //the first part of URL after BASE_URL (without slash)
+    public final String entity;
     protected Logger log;
 
+    /**
+     * Base constructor
+     * @param contentType - type of request and response
+     * @param entity - name of controller e.g. "pets", "users" etc.
+     */
     public BaseClient(ContentType contentType, String entity) {
         this.contentType = contentType;
         this.entity = entity;

@@ -4,8 +4,6 @@ import com.ss.apitesting.models.pet.PetModel;
 import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
 
-import java.util.Arrays;
-
 
 public class PetAssertions {
 

@@ -2,24 +2,22 @@ package com.ss.apitesting.order.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.OrderBuilder;
-import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.models.order.StoreModel;
 import com.ss.apitesting.models.order.StoreModelString;
-import com.ss.apitesting.order.OrderTestRunner;
+import com.ss.apitesting.order.OrderBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-import static com.ss.apitesting.util.ValuesGenerator.*;
-import static org.hamcrest.Matchers.is;
+import static com.ss.apitesting.util.ValuesGenerator.generateDateString;
+import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 @Epic("Access to Petstore orders tests")
-@Feature("Post order test suite")
-public class PostOrderPositiveTest extends OrderTestRunner {
+@Feature("Post order positive test suite")
+public class PostOrderPositiveTest extends OrderBaseTest {
     @DataProvider(name = "postValues")
     public static Object[][] postValues() {
         return new Object[][]{
@@ -66,8 +64,8 @@ public class PostOrderPositiveTest extends OrderTestRunner {
                 .bodyValueEquals("status", storeModel.status)
                 .bodyValueEquals("petId", storeModel.petId)
                 .bodyValueEquals("quantity", storeModel.quantity)
-                //.bodyValueEquals("shipDate", storeModel.shipDate)
-                // ^ Fails, because returns 2020-11-03T23:09:48.076+0000 when provided 2020-11-03T23:09:48.076Z (formatting)
+                .bodyValueEquals("shipDate", storeModel.shipDate.replace("Z", "+0000"))
+                // The service returns 2020-11-03T23:09:48.076+0000 when provided 2020-11-03T23:09:48.076Z (formatting)
                 .bodyValueEquals("complete", storeModel.complete);
     }
 
