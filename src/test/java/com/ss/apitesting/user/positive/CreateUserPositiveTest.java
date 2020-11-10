@@ -47,4 +47,11 @@ public class CreateUserPositiveTest extends UserBaseTest {
         BaseAssertion assertGetting = new BaseAssertion(given);
         assertGetting.statusCode(200);
     }
+
+    @Test(description = "Create user with valid data")
+    public void createUserWithValidData(){
+        userModel = userClient.createUserData();
+        BaseAssertion assertion = new BaseAssertion(userClient.createNewUser(userModel));
+        assertion.statusCode(200);
+    }
 }

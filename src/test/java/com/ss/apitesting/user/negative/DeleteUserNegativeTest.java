@@ -7,8 +7,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 
 @Epic("Operation about user tests")
@@ -33,4 +36,12 @@ public class DeleteUserNegativeTest extends UserBaseTest {
         BaseAssertion assertDeleting = new BaseAssertion(deleted);
         assertDeleting.statusCode(404);
     }
+
+    @Test
+    public void deleteUserWithInvalidUsernameTest() {
+        Response response = userClient.deleteByUsername("111");
+        Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
+        Assert.assertEquals(response.getContentType(), "");
+    }
+
 }

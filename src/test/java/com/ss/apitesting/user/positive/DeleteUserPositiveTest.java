@@ -10,9 +10,12 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static java.net.HttpURLConnection.HTTP_OK;
 
 @Epic("Operation about user tests")
 @Feature("Delete user positive test suite")
@@ -45,5 +48,11 @@ public class DeleteUserPositiveTest extends UserBaseTest {
         Response given = userClient.getByUsername(user.username);
         BaseAssertion assertGetting = new BaseAssertion(given);
         assertGetting.statusCode(404);
+    }
+
+    @Test
+    public void deleteUserTest() {
+        Response response = userClient.deleteByUsername(userModel.username);
+        Assert.assertEquals(response.getStatusCode(), HTTP_OK);
     }
 }
