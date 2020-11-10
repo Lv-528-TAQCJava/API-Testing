@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 @Epic("Operation about user tests")
 @Feature("Get user by username positive test suite")
 public class GetUserByNamePositiveTest {
+
     private UserClient userClient;
     private UserModel currentUser;
 

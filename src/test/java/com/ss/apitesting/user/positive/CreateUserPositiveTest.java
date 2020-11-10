@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 @Epic("Operation about user tests")
 @Feature("Create user positive test suite")
 public class CreateUserPositiveTest extends UserBaseTest {
+
     @DataProvider(name = "users")
     public Object[][] data() {
         return new Object[][]{
