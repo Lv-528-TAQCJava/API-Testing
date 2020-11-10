@@ -1,26 +1,63 @@
 package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
-import com.ss.apitesting.user.UserBaseTest;
+import com.ss.apitesting.assertion.UserAssertions;
+import com.ss.apitesting.builder.UserBuilder;
+import com.ss.apitesting.client.UserClient;
+import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.util.ValuesGenerator;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class GetUserByNamePositiveTest extends UserBaseTest {
-    @Test(description = "Get user with existing username")
-    public void getUserByValidUsernameTest(){
-        userModel = userClient.createUserData();
-        userClient.createNewUser(userModel);
+@Epic("Operation about user tests")
+@Feature("Get user by username positive test suite")
+public class GetUserByNamePositiveTest {
+    private UserClient userClient;
+    private UserModel currentUser;
 
-        BaseAssertion assertion = new BaseAssertion(userClient.getByUsername(userModel.username));
-        assertion.defaultAsserts()
-                .bodyValueEquals("id", userModel.id)
-                .bodyValueEquals("username", userModel.username)
-                .bodyValueEquals("firstName", userModel.firstname)
-                .bodyValueEquals("lastName", userModel.lastname)
-                .bodyValueEquals("email", userModel.email)
-                .bodyValueEquals("password", userModel.password)
-                .bodyValueEquals("phone", userModel.phone)
-                .bodyValueEquals("userStatus", userModel.userStatus);
+    @BeforeClass
+    public void init() {
+        userClient = new UserClient(ContentType.JSON);
+    }
 
-        userClient.deleteByUsername(userModel.username).then().statusCode(200);
+    @DataProvider(name = "validUsers")
+    public Object[] data() {
+        return new Object[]{
+                UserBuilder.userWith().id(ValuesGenerator.generateId(1000, 10000))
+                        .username("karl")
+                        .email("karlovich@gmail.com")
+                        .password("djkassjak")
+                        .phone("0680085423")
+                        .build(),
+
+                UserBuilder.userWith().id(ValuesGenerator.generateId(1000, 10000))
+                        .username("null")
+                        .email("nullovich@gmail.com")
+                        .password("djkassjak")
+                        .phone("")
+                        .build()
+        };
+    }
+
+    @Test(dataProvider = "validUsers", description = "Getting user by name test")
+    public void getUserTest(UserModel user) {
+        currentUser = user;
+        Response created = userClient.createNewUser(user);
+        BaseAssertion assertCreation = new BaseAssertion(created);
+        assertCreation.statusCode(200);
+
+        Response given = userClient.getByUsername(user.username);
+        UserAssertions.assertBodyEquals(given, user);
+    }
+
+    @AfterMethod
+    public void removeUser() {
+        userClient.deleteByUsername(currentUser.username);
     }
 }
