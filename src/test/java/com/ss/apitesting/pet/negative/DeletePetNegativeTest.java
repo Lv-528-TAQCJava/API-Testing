@@ -14,7 +14,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
-@Feature("Delete pet positive test suite")
+@Feature("Delete pet negative test suite")
 public class DeletePetNegativeTest {
 
     protected PetClient petClient;

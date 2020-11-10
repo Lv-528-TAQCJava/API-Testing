@@ -13,17 +13,18 @@ import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
 public class UserClient extends BaseClient {
 
+    private static final String USER_ENTITY = "user";
 
     public UserClient(ContentType contentType) {
-        super(contentType, "user");
+        super(contentType, USER_ENTITY);
     }
 
     public UserClient(String contentType) {
-        super(contentType, "user");
+        super(contentType, USER_ENTITY);
     }
 
     public UserClient() {
-        super(ContentType.JSON, "user");
+        super(ContentType.JSON, USER_ENTITY);
     }
 
     /**
@@ -74,7 +75,7 @@ public class UserClient extends BaseClient {
 
     public UserModel createUserData() {
         int userId = generateId();
-        UserModel userModel = UserBuilder.userWith()
+        return UserBuilder.userWith()
                 .id(userId)
                 .username("Username" + userId)
                 .firstname("User" + userId + "firstname")
@@ -84,12 +85,11 @@ public class UserClient extends BaseClient {
                 .phone("+380" + RandomStringUtils.randomAlphabetic(9))
                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                 .build();
-        return userModel;
     }
 
     public UserModel createUserWithoutPassword() {
         int userId = generateId();
-        UserModel userModel = UserBuilder.userWith()
+        return UserBuilder.userWith()
                 .id(userId)
                 .username("Username" + userId)
                 .firstname("User" + userId + "firstname")
@@ -98,7 +98,6 @@ public class UserClient extends BaseClient {
                 .phone("+380" + RandomStringUtils.randomAlphabetic(9))
                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                 .build();
-        return userModel;
     }
 
     public List<UserModel> createListOfUsers(int numberOfUser){

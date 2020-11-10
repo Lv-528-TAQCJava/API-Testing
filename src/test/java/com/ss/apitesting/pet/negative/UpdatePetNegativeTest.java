@@ -63,7 +63,7 @@ public class UpdatePetNegativeTest {
     public void updatePetWithInvalidId(StringPetModel pet) {
         Response invalidResponse = petClient.updatePet(pet);
         BaseAssertion invalidAssertion = new BaseAssertion(invalidResponse);
-        invalidAssertion.statusCode(500);
+        invalidAssertion.statusCode(404);
     }
 
     @Test(dataProvider = "negativeId")

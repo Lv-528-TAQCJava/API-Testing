@@ -12,7 +12,7 @@ public abstract class PetBaseTest extends BaseTest {
 
     @Override
     protected String getLoggerName() {
-        return "PetTest";
+        return "PetLogger";
     }
 
     @Override

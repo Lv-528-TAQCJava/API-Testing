@@ -11,15 +11,19 @@ import static io.restassured.RestAssured.*;
 
 public class PetClient extends BaseClient {
 
+    private static final String STATUS_PARAM = "status";
+    private static final String PET_ENTITY = "pet";
+
     public PetClient(ContentType contentType) {
-        super(contentType, "pet");
+        super(contentType, PET_ENTITY);
     }
+
     public PetClient(String contentType) {
-        super(contentType, "pet");
+        super(contentType, PET_ENTITY);
     }
 
     public PetClient() {
-        super(ContentType.JSON, "pet");
+        super(ContentType.JSON, PET_ENTITY);
     }
 
     public Response getById(String id) {
@@ -40,9 +44,9 @@ public class PetClient extends BaseClient {
      * @return result of POST request
      */
     public Response updatePet(PetModel pet) {
-        Map<String, String> formParams = new HashMap<String, String>();
+        Map<String, String> formParams = new HashMap<>();
         formParams.put("name", pet.name);
-        formParams.put("status", pet.status);
+        formParams.put(STATUS_PARAM, pet.status);
 
         return prepareRequest()
                 .formParams(formParams)
@@ -57,9 +61,9 @@ public class PetClient extends BaseClient {
      * @return result of POST request
      */
     public Response updatePet(StringPetModel pet) {
-        Map<String, String> formParams = new HashMap<String, String>();
+        Map<String, String> formParams = new HashMap<>();
         formParams.put("name", pet.name);
-        formParams.put("status", pet.status);
+        formParams.put(STATUS_PARAM, pet.status);
 
         return prepareRequest()
                 .formParams(formParams)
@@ -78,14 +82,10 @@ public class PetClient extends BaseClient {
                 .body(pet)
                 .post("/{entity}");
     }
-    public Response createNewPet(PetModel petModel) {
-        return prepareRequest()
-                .body(petModel)
-                .post("/{entity}");
-    }
+
     public Response getPetByStatus(String status){
         return  prepareRequest()
-                .queryParam("status", status)
+                .queryParam(STATUS_PARAM, status)
                 .get("/{entity}/findByStatus");
     }
 }

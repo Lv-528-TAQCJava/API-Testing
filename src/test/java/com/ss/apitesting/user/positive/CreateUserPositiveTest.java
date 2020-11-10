@@ -2,14 +2,11 @@ package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.UserBuilder;
-import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

@@ -1,23 +1,20 @@
 package com.ss.apitesting.pet.positive;
 
+import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.assertion.PetAssertions;
 import com.ss.apitesting.builder.PetBuilder;
-import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
-import com.ss.apitesting.models.pet.Tag;
 import com.ss.apitesting.pet.PetBaseTest;
-import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Add pet positive test suite")
 public class AddPetPositiveTest extends PetBaseTest {
+
     @DataProvider(name = "addingPetsData")
     public Object[][] data() {
         return new Object [][] {
@@ -45,8 +42,9 @@ public class AddPetPositiveTest extends PetBaseTest {
         petClient.deleteById(String.valueOf(pet.id));
 
         // Adding pets
-        int POSTstatus = petClient.createPet(pet).statusCode();
-        Assert.assertEquals(POSTstatus, 200);
+        Response created = petClient.createPet(pet);
+        BaseAssertion assertCreated = new BaseAssertion(created);
+        assertCreated.statusCode(200);
 
         PetAssertions.assertBodyEquals(petClient.getById(String.valueOf(pet.id)), pet);
 

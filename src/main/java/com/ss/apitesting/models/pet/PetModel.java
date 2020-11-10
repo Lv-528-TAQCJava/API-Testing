@@ -1,21 +1,9 @@
 package com.ss.apitesting.models.pet;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Arrays;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "id",
-        "category",
-        "name",
-        "photoUrls",
-        "tags",
-        "status"
-})
 public class PetModel {
 
     public Long id;
@@ -24,16 +12,6 @@ public class PetModel {
     public String[] photoUrls;
     public Tag[] tags;
     public String status;
-
-    public PetModel(Long id, Category category, String name, String[] photoUrls, Tag[] tags, String status) {
-        super();
-        this.id = id;
-        this.category = category;
-        this.name = name;
-        this.photoUrls = photoUrls;
-        this.tags = tags;
-        this.status = status;
-    }
 
     public PetModel() {
         super();
@@ -66,7 +44,7 @@ public class PetModel {
             return false;
         }
 
-        return a == null? false : a.equals(b);
+        return a.equals(b);
     }
 
     @Override

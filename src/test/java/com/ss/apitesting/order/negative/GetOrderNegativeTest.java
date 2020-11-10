@@ -3,6 +3,8 @@ package com.ss.apitesting.order.negative;
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.StoreClient;
 import com.ss.apitesting.order.OrderBaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,7 +12,10 @@ import org.testng.annotations.Test;
 
 import static com.ss.apitesting.util.ValuesGenerator.generateId;
 
+@Epic("Access to Petstore orders tests")
+@Feature("Get order negative test suite")
 public class GetOrderNegativeTest extends OrderBaseTest {
+
     @BeforeMethod
     @Override
     public void createOrder() {
