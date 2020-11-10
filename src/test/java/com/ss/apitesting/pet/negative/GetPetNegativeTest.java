@@ -2,6 +2,7 @@ package com.ss.apitesting.pet.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.client.PetClient;
+import com.ss.apitesting.pet.PetBaseTest;
 import com.ss.apitesting.util.RetryAnalyzerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -13,14 +14,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Get pet negative test suite")
-public class GetPetNegativeTest {
-
-    protected PetClient petClient;
-
-    @BeforeClass
-    public void init() {
-        petClient = new PetClient(ContentType.JSON);
-    }
+public class GetPetNegativeTest extends PetBaseTest {
 
     @DataProvider(name = "negativeIds")
     public Object[][] negativeData() {

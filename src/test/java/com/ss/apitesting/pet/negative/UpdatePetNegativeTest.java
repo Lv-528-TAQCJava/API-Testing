@@ -5,6 +5,7 @@ import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.models.pet.StringPetModel;
+import com.ss.apitesting.pet.PetBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -15,13 +16,7 @@ import org.testng.annotations.Test;
 
 @Epic("Operation with pets tests")
 @Feature("Update pet negative test suite")
-public class UpdatePetNegativeTest {
-    protected PetClient petClient;
-
-    @BeforeClass
-    public void init() {
-        petClient = new PetClient(ContentType.JSON);
-    }
+public class UpdatePetNegativeTest extends PetBaseTest {
 
     @DataProvider(name = "negativeId")
     public Object[][] negativeIdData() {
