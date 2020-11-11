@@ -37,7 +37,7 @@ public class UserClient extends BaseClient {
                 .get("/{entity}/{username}");
     }
 
-    public Response putUser(UserModel reqBody, String username) {
+    public Response updateUser(UserModel reqBody, String username) {
         return prepareRequest()
                 .body(reqBody)
                 .put("/{entity}/" + username);

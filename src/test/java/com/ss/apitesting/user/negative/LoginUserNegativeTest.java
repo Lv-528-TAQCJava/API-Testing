@@ -1,5 +1,6 @@
 package com.ss.apitesting.user.negative;
 
+import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,7 +20,8 @@ public class LoginUserNegativeTest extends UserBaseTest {
         Response response = userClient.getUserLogin(userModel.username, "111111");
         System.out.println(response.getStatusCode() + " " + response.getContentType());
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        response.then().contentType(ContentType.JSON);
+        BaseAssertion baseAssertion = new BaseAssertion(response);
+        baseAssertion.contentType(ContentType.JSON);
     }
 
     @Test
@@ -27,7 +29,8 @@ public class LoginUserNegativeTest extends UserBaseTest {
         Response response = userClient.getUserLogin("someInvalidUsername", userModel.password);
         System.out.println(response.getStatusCode() + " " + response.getContentType());
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        response.then().contentType(ContentType.JSON);
+        BaseAssertion baseAssertion = new BaseAssertion(response);
+        baseAssertion.contentType(ContentType.JSON);
     }
 
     @Test
@@ -35,6 +38,7 @@ public class LoginUserNegativeTest extends UserBaseTest {
         Response response = userClient.getUserLogin("someInvalidUsername", "someInvalidPassword");
         System.out.println(response.getStatusCode() + " " + response.getContentType());
         Assert.assertEquals(response.getStatusCode(), HTTP_NOT_FOUND);
-        response.then().contentType(ContentType.JSON);
+        BaseAssertion baseAssertion = new BaseAssertion(response);
+        baseAssertion.contentType(ContentType.JSON);
     }
 }
