@@ -4,6 +4,7 @@ import com.ss.apitesting.models.pet.StringPetModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.*;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +54,17 @@ public class PetClient extends BaseClient {
                 .contentType(ContentType.URLENC)
                 .pathParam("petId", pet.id)
                 .post("/{entity}/{petId}");
+    }
+
+    public Response uploadImage(PetModel pet) {
+        return given().log().all()
+                .baseUri(BASE_URL)
+                .accept(ContentType.JSON)
+                .contentType("multipart/form-data")
+                .formParam("additionalMetadata","data")
+                .multiPart("file", new File("D:\\image.jpg"),"image/jpeg")
+                .pathParam("petId", pet.id)
+                .post("/pet/{petId}/uploadImage");
     }
 
     /**
