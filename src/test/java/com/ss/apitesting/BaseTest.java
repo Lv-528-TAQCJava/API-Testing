@@ -23,11 +23,13 @@ public abstract class BaseTest {
     public void beforeClass() {
         initLogger();
         MDC.put("testname", this.getClass().getSimpleName());
+        /* ^ Allows logging each test class into separate file.
+        The <key> name is defined at logback-test.xml under <discriminator> tag*/
     }
 
     @AfterClass
     public void afterClass() {
         initLogger();
-        MDC.remove("testname");
+        MDC.remove("testname"); //Do not forget, otherwise logging into separate files will not work
     }
 }
