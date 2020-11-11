@@ -28,8 +28,33 @@
         </encoder>
     </appender>
 
+    <appender name="separateFilesAppender" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <Key>testname</Key>
+            <DefaultValue>OtherTests</DefaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${testname}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <File>${user.dir}\target\logs\${testname}.log</File>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <FileNamePattern>${user.dir}\target\logs\${testname}.%i.log</FileNamePattern>
+                    <MinIndex>1</MinIndex>
+                    <MaxIndex>100</MaxIndex>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <MaxFileSize>10MB</MaxFileSize>
+                </triggeringPolicy>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </sift>
+    </appender>
+
     <root level="DEBUG">
         <appender-ref ref="consoleAppender" />
-        <appender-ref ref="fileAppender"/>
+<!--        <appender-ref ref="fileAppender"/>-->
+        <appender-ref ref="separateFilesAppender"/>
     </root>
 </configuration>
