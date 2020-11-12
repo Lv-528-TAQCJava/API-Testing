@@ -32,18 +32,21 @@ public class UserClient extends BaseClient {
      * @return response
      */
     public Response getByUsername(String username) {
+        log.debug("GET user by name: {}", username);
         return prepareRequest()
                 .pathParam("username", username )
                 .get("/{entity}/{username}");
     }
 
     public Response updateUser(UserModel reqBody, String username) {
+        log.debug("PUT user with name {} by: {}", username, reqBody);
         return prepareRequest()
                 .body(reqBody)
                 .put("/{entity}/" + username);
     }
 
     public Response getUserLogin(String username, String password) {
+        log.debug("LOGIN user with name: {}, password: {}", username, password);
         return prepareRequest()
                 .queryParam("username", username)
                 .queryParam("password", password)
@@ -51,61 +54,29 @@ public class UserClient extends BaseClient {
     }
 
     public Response getUserLogout() {
+        log.debug("LOGOUT user");
         return prepareRequest()
                 .get("/{entity}/logout");
     }
 
     public Response createNewUser(UserModel userModel) {
+        log.debug("POST user: {}", userModel);
         return prepareRequest()
                 .body(userModel)
                 .post("/{entity}");
     }
 
     public Response createUserList(List<UserModel> userList){
+        log.debug("POST list of users with length: {}", userList.size());
         return prepareRequest()
                 .body(userList)
                 .post("/{entity}/createWithArray");
     }
 
     public Response deleteByUsername(String username) {
+        log.debug("DELETE user by name: {}", username);
         return prepareRequest()
                 .pathParam("username", username)
                 .delete("/{entity}/{username}");
     }
-
-    public UserModel createUserData() {
-        int userId = generateId();
-        return UserBuilder.userWith()
-                .id(userId)
-                .username("Username" + userId)
-                .firstname("User" + userId + "firstname")
-                .lastname("User" + userId + "lastname")
-                .email("User" + userId + "@gmail.com")
-                .password("User" + userId + "password")
-                .phone("+380" + RandomStringUtils.randomAlphabetic(9))
-                .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
-                .build();
-    }
-
-    public UserModel createUserWithoutPassword() {
-        int userId = generateId();
-        return UserBuilder.userWith()
-                .id(userId)
-                .username("Username" + userId)
-                .firstname("User" + userId + "firstname")
-                .lastname("User" + userId + "lastname")
-                .email("User" + userId + "@gmail.com")
-                .phone("+380" + RandomStringUtils.randomAlphabetic(9))
-                .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
-                .build();
-    }
-
-    public List<UserModel> createListOfUsers(int numberOfUser){
-        List<UserModel> userList= new ArrayList<>();
-        for(int i = 0; i < numberOfUser; i++){
-            userList.add(createUserData());
-        }
-        return userList;
-    }
-
 }

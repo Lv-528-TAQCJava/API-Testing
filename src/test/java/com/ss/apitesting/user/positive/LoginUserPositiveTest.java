@@ -1,7 +1,6 @@
 package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
-import com.ss.apitesting.assertion.UserAssertions;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

@@ -12,6 +12,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.ss.apitesting.builder.UserBuilder.userWith;
+
 @Epic("Operation about user tests")
 @Feature("Update user negative test suite")
 public class UpdateUserNegativeTest extends UserBaseTest {
@@ -20,7 +22,7 @@ public class UpdateUserNegativeTest extends UserBaseTest {
     public Object[][] data() {
         return new Object[][]{
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname("Drake")
@@ -30,10 +32,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -43,10 +44,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -56,10 +56,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -69,10 +68,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -82,10 +80,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -95,10 +92,9 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone(null)
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(null)
                                 .username("DrakeBlack")
                                 .firstname(null)
@@ -108,7 +104,6 @@ public class UpdateUserNegativeTest extends UserBaseTest {
                                 .phone(null)
                                 .userStatus(null)
                                 .build()
-
                 },
         };
     }
@@ -119,6 +114,6 @@ public class UpdateUserNegativeTest extends UserBaseTest {
         Response response = userClient.getByUsername(updatedModel.username);
         BaseAssertion updateAssertion = new BaseAssertion(response);
         updateAssertion.statusCode(200);
-        UserAssertions.assertFalseBodyEquals(response, updatedModel);
+        UserAssertions.assertBodyNotEquals(response, updatedModel);
     }
 }

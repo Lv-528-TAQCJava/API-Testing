@@ -2,14 +2,11 @@ package com.ss.apitesting.pet.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.PetBuilder;
-import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.pet.PetBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -18,7 +15,7 @@ import org.testng.annotations.Test;
 public class DeletePetPositiveTest extends PetBaseTest {
     @DataProvider(name = "deletingPet")
     public Object[][] data() {
-        return new Object [][] {
+        return new Object[][]{
                 {
                         PetBuilder.petWith().id(1L).name("hundo").status("sold").build()
                 },

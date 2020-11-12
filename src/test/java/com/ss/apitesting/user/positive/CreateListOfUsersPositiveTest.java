@@ -1,6 +1,7 @@
 package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
+import com.ss.apitesting.data.UserRepository;
 import com.ss.apitesting.models.user.UserModel;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
@@ -17,7 +18,7 @@ public class CreateListOfUsersPositiveTest extends UserBaseTest {
 
     @Test(description = "Get list of users with valid data")
     public void createListOfUsersWithValidData() {
-        userList = userClient.createListOfUsers(2);
+        userList = UserRepository.createListOfUsers(2);
         BaseAssertion assertion = new BaseAssertion(userClient.createUserList(userList));
         assertion.statusCode(200);
     }
