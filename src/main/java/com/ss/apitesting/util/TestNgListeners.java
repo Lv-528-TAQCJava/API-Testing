@@ -12,6 +12,7 @@ public class TestNgListeners implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         log.warn("The name of the testcase failed is: {}", result.getName());
+        //TODO add logs to Allure report
     }
 
     @Override
@@ -22,6 +23,9 @@ public class TestNgListeners implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
         log.info("{} test case started", result.getName());
+        //TODO ITextContext - MDC.put("testname", .getClass().getSimpleName());
+        // + onFinish() MDC.remove("testname");
+        // + logs from REST-assured
     }
 
     @Override
