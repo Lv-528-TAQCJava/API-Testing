@@ -1,14 +1,11 @@
 package com.ss.apitesting.user.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
-import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;

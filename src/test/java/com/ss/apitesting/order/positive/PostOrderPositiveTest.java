@@ -92,6 +92,4 @@ public class PostOrderPositiveTest extends OrderBaseTest {
                 .bodyValueEquals("quantity", Integer.valueOf(storeModelString.quantity))
                 .bodyValueEquals("complete", Boolean.valueOf(storeModelString.complete));
     }
-
-
 }

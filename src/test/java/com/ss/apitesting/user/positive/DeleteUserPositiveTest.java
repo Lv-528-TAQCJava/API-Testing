@@ -11,6 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.ss.apitesting.builder.UserBuilder.userWith;
+
 import static java.net.HttpURLConnection.HTTP_OK;
 
 @Epic("Operation about user tests")
@@ -20,13 +22,13 @@ public class DeleteUserPositiveTest extends UserBaseTest {
     public Object[][] data() {
         return new Object[][]{
                 {
-                        UserBuilder.userWith().id(1).username("ilonahk").build()
+                        userWith().id(1).username("ilonahk").build()
                 },
                 {
-                        UserBuilder.userWith().id(2).username("ik32").build()
+                        userWith().id(2).username("ik32").build()
                 },
                 {
-                        UserBuilder.userWith().id(3).username("ilov+nahk").build()
+                        userWith().id(3).username("ilov+nahk").build()
                 }
         };
     }

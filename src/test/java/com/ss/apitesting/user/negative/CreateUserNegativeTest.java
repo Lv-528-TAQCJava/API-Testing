@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.ss.apitesting.builder.UserBuilder.userWith;
+
 @Epic("Operation about user tests")
 @Feature("Create user negative test suite")
 public class CreateUserNegativeTest {
@@ -26,19 +28,19 @@ public class CreateUserNegativeTest {
     @DataProvider(name = "invalidUsers")
     public Object[] data() {
         return new Object[]{
-                UserBuilder.userWith().id(ValuesGenerator.generateId(1000, 10000))
+                userWith().id(ValuesGenerator.generateId(1000, 10000))
                         .username("karl")
                         .email("karlovich@gmail.com")
                         .password(null)
                         .build(),
 
-                UserBuilder.userWith().id(ValuesGenerator.generateId(1000, 10000))
+                userWith().id(ValuesGenerator.generateId(1000, 10000))
                         .username(null)
                         .email("karlovich@gmail.com")
                         .password("djkassjak")
                         .build(),
 
-                UserBuilder.userWith().id(ValuesGenerator.generateId(1000, 10000))
+                userWith().id(ValuesGenerator.generateId(1000, 10000))
                         .username("karl")
                         .email(null)
                         .password("dafad")

@@ -35,18 +35,6 @@ public class PetModel {
                 .toString();
     }
 
-    public static boolean equals(Object a, Object b) {
-        if (a == b) {
-            return true;
-        }
-
-        if (!(a instanceof PetModel)) {
-            return false;
-        }
-
-        return a.equals(b);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

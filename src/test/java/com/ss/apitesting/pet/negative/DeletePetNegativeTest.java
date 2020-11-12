@@ -3,7 +3,6 @@ package com.ss.apitesting.pet.negative;
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.PetBuilder;
 import com.ss.apitesting.client.PetClient;
-import com.ss.apitesting.models.pet.StringPetModel;
 import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

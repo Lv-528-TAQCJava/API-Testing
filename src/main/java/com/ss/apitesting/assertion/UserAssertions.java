@@ -5,16 +5,18 @@ import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
 
 public class UserAssertions {
+
     public static void assertBodyEquals(Response response, UserModel expected) {
         SoftAssert softAssert = new SoftAssert();
         UserModel actual = response.as(UserModel.class);
-        softAssert.assertTrue(UserModel.equals(actual, expected));
+        softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
     }
-    public static void assertFalseBodyEquals(Response response, UserModel expected) {
+
+    public static void assertBodyNotEquals(Response response, UserModel expected) {
         SoftAssert softAssert = new SoftAssert();
         UserModel actual = response.as(UserModel.class);
-        softAssert.assertFalse(UserModel.equals(actual, expected));
+        softAssert.assertNotEquals(actual, expected);
         softAssert.assertAll();
     }
 }

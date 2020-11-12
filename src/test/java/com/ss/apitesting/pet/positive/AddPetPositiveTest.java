@@ -17,7 +17,7 @@ public class AddPetPositiveTest extends PetBaseTest {
 
     @DataProvider(name = "addingPetsData")
     public Object[][] data() {
-        return new Object [][] {
+        return new Object[][]{
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").build()
                 },

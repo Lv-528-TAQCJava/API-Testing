@@ -72,6 +72,7 @@ public class OrderBuilder {
         orderString.complete = String.valueOf(complete);
         return this;
     }
+
     public OrderBuilder completeString(String complete) {
         orderString.complete = complete;
         return this;

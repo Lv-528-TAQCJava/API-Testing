@@ -1,6 +1,7 @@
 package com.ss.apitesting.client;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.models.pet.StringPetModel;
+import com.ss.apitesting.models.pet.UpdatePetDto;
 import io.restassured.http.ContentType;
 import io.restassured.response.*;
 
@@ -27,12 +28,14 @@ public class PetClient extends BaseClient {
     }
 
     public Response getById(String id) {
+        log.debug("GET pet by id: {}", id);
         return prepareRequest()
                 .pathParam("id", id)
                 .get("/{entity}/{id}");
     }
 
     public Response deleteById(String id) {
+        log.debug("DELETE pet by id: {}", id);
         return prepareRequest()
                 .pathParam("id", id)
                 .delete("/{entity}/{id}");
@@ -40,35 +43,19 @@ public class PetClient extends BaseClient {
 
     /**
      * Updates name and status of pet, selected by pet's Id
-     * @param pet a pet to update
+     * @param params a values of pet to update
      * @return result of POST request
      */
-    public Response updatePet(PetModel pet) {
+    public Response updatePet(UpdatePetDto params) {
+        log.debug("POST(update) pet with new values: {}", params);
         Map<String, String> formParams = new HashMap<>();
-        formParams.put("name", pet.name);
-        formParams.put(STATUS_PARAM, pet.status);
+        formParams.put("name", params.name);
+        formParams.put(STATUS_PARAM, params.status);
 
         return prepareRequest()
                 .formParams(formParams)
                 .contentType(ContentType.URLENC)
-                .pathParam("petId", pet.id)
-                .post("/{entity}/{petId}");
-    }
-
-    /**
-     * Updates name and status of pet, selected by pet's Id(as string)
-     * @param pet a pet to update
-     * @return result of POST request
-     */
-    public Response updatePet(StringPetModel pet) {
-        Map<String, String> formParams = new HashMap<>();
-        formParams.put("name", pet.name);
-        formParams.put(STATUS_PARAM, pet.status);
-
-        return prepareRequest()
-                .formParams(formParams)
-                .contentType(ContentType.URLENC)
-                .pathParam("petId", pet.id)
+                .pathParam("petId", params.id)
                 .post("/{entity}/{petId}");
     }
 
@@ -78,6 +65,7 @@ public class PetClient extends BaseClient {
      * @return Result of creating
      */
     public Response createPet(PetModel pet) {
+        log.debug("POST(create) pet: {}", pet);
         return prepareRequest()
                 .body(pet)
                 .post("/{entity}");

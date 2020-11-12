@@ -7,13 +7,12 @@ import com.ss.apitesting.models.user.UserModel;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.Matchers.is;
+import static com.ss.apitesting.builder.UserBuilder.userWith;
 
 @Epic("Operation about user tests")
 @Feature("Update user positive test suite")
@@ -24,7 +23,7 @@ public class UpdateUserPositiveTest extends UserBaseTest {
     public Object[][] data(){
         return new Object[][]{
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(123450)
                                 .username("DrakeBlack")
                                 .firstname("Drake")
@@ -34,10 +33,9 @@ public class UpdateUserPositiveTest extends UserBaseTest {
                                 .phone("+" + RandomStringUtils.randomAlphabetic(10))
                                 .userStatus(Integer.parseInt(RandomStringUtils.randomNumeric(3)))
                                 .build()
-
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(879402)
                                 .username("SpongeBob")
                                 .firstname("Bob")
@@ -48,7 +46,7 @@ public class UpdateUserPositiveTest extends UserBaseTest {
                                 .build()
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(777777)
                                 .username("JimCarry1")
                                 .firstname("Jim")
@@ -58,7 +56,7 @@ public class UpdateUserPositiveTest extends UserBaseTest {
                                 .build()
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(777778)
                                 .username("JimCarry2")
                                 .firstname("Jim")
@@ -67,8 +65,7 @@ public class UpdateUserPositiveTest extends UserBaseTest {
                                 .build()
                 },
                 {
-
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(777779)
                                 .username("JimCarry3")
                                 .firstname("Jim")
@@ -76,14 +73,14 @@ public class UpdateUserPositiveTest extends UserBaseTest {
                                 .build()
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(777788)
                                 .username("JimCarry4")
                                 .firstname("Jim")
                                 .build()
                 },
                 {
-                        UserBuilder.userWith()
+                        userWith()
                                 .id(777555)
                                 .username("JimCarry5")
                                 .build()
