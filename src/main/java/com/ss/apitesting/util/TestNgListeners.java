@@ -3,10 +3,15 @@ package com.ss.apitesting.util;
 import io.qameta.allure.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.IAnnotationTransformer;
+import org.testng.IRetryAnalyzer;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.ITestAnnotation;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +24,7 @@ public class TestNgListeners implements ITestListener {
     public void onTestFailure(ITestResult result) {
         log.warn("The name of the testcase failed is: {}", result.getName());
         attachLogFile(result.getInstance().getClass().getSimpleName());
+        //TODO use retry analyzer (do something with the result param)
     }
 
     @Override
@@ -50,4 +56,5 @@ public class TestNgListeners implements ITestListener {
         }
         return null;
     }
+
 }

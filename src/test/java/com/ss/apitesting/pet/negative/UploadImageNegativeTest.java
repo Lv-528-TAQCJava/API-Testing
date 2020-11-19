@@ -14,12 +14,11 @@ import java.io.File;
 public class UploadImageNegativeTest extends PetBaseTest {
     @DataProvider(name = "InvalidFileType")
     public Object[][] data() {
-        String memeType;
-        return new Object [][] {
+                return new Object [][] {
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
                         new File("D:\\TextFile.txt"),
-                        memeType = "text/plain",
+                        "text/plain",
 
                 },
         };
@@ -32,32 +31,32 @@ public class UploadImageNegativeTest extends PetBaseTest {
                 {
                         new StringPetModel("a", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("1000a", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-844584845684848454815151444558", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-844584845684848454815151444558", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 }
         };
     }

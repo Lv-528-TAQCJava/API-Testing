@@ -44,7 +44,7 @@ public class GetPetNegativeTest extends PetBaseTest {
         };
     }
 
-    @Test(dataProvider = "invalidIds", retryAnalyzer = RetryAnalyzerImpl.class)
+    @Test(dataProvider = "invalidIds")
     public void getPetByInvalidId(String id) {
         Response invalidResponse = petClient.getById(id);
         BaseAssertion invalidAssertion = new BaseAssertion(invalidResponse);

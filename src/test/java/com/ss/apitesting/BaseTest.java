@@ -1,5 +1,6 @@
 package com.ss.apitesting;
 
+import com.ss.apitesting.util.TestNgAnnotationTransformer;
 import com.ss.apitesting.util.TestNgListeners;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
 
-@Listeners(TestNgListeners.class)
+@Listeners({TestNgListeners.class, TestNgAnnotationTransformer.class})
 public abstract class BaseTest {
     protected Logger log;
 
