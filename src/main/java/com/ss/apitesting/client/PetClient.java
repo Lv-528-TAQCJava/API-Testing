@@ -62,7 +62,7 @@ public class PetClient extends BaseClient {
                 .accept(ContentType.JSON)
                 .contentType("multipart/form-data")
                 .formParam("additionalMetadata","data")
-                .multiPart("file", new File("D:\\image.jpg"),"image/jpeg")
+                .multiPart("file", new File("D:\\icon.png"),"image/png")
                 .pathParam("petId", pet.id)
                 .post("/pet/{petId}/uploadImage");
     }
