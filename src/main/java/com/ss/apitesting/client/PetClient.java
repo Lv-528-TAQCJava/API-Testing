@@ -5,6 +5,7 @@ import com.ss.apitesting.models.pet.UpdatePetDto;
 import io.restassured.http.ContentType;
 import io.restassured.response.*;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +58,42 @@ public class PetClient extends BaseClient {
                 .contentType(ContentType.URLENC)
                 .pathParam("petId", params.id)
                 .post("/{entity}/{petId}");
+    }
+
+    /**
+     * Upload image to pet, selected by pet's Id
+     * @param pet a pet to upload image
+     * @param file path to file
+     * @param memeType type of the file
+     * @return result of POST request
+     */
+    public Response uploadImage(PetModel pet, File file, String memeType) {
+        return given().log().all()
+                .baseUri(BASE_URL)
+                .accept(ContentType.JSON)
+                .contentType("multipart/form-data")
+                .formParam("additionalMetadata","data")
+                .multiPart("file", file, memeType)
+                .pathParam("petId", pet.id)
+                .post("/pet/{petId}/uploadImage");
+    }
+
+    /**
+     * Upload image to pet, selected by pet's Id(as String)
+     * @param pet a pet to upload image
+     * @param file path to file
+     * @param memeType type of the file
+     * @return result of POST request
+     */
+    public Response uploadImage(StringPetModel pet, File file, String memeType) {
+        return given().log().all()
+                .baseUri(BASE_URL)
+                .accept(ContentType.JSON)
+                .contentType("multipart/form-data")
+                .formParam("additionalMetadata","data")
+                .multiPart("file", file, memeType)
+                .pathParam("petId", pet.id)
+                .post("/pet/{petId}/uploadImage");
     }
 
     /**
