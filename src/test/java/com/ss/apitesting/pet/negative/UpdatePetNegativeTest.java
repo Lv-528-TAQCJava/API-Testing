@@ -1,16 +1,11 @@
 package com.ss.apitesting.pet.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
-import com.ss.apitesting.builder.PetBuilder;
-import com.ss.apitesting.client.PetClient;
-import com.ss.apitesting.models.pet.PetModel;
-import com.ss.apitesting.models.pet.StringPetModel;
+import com.ss.apitesting.models.pet.UpdatePetDto;
 import com.ss.apitesting.pet.PetBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -22,13 +17,13 @@ public class UpdatePetNegativeTest extends PetBaseTest {
     public Object[][] negativeIdData() {
         return new Object [][] {
                 {
-                        PetBuilder.petWith().id(0L).name("hundo").status("sold").build()
+                        new UpdatePetDto("0", "hundo", "sold")
                 },
                 {
-                        PetBuilder.petWith().id(-10L).name("hundo").status("sold").build()
+                        new UpdatePetDto("-10", "hundo", "sold")
                 },
                 {
-                        PetBuilder.petWith().id(Long.MIN_VALUE).name("hundo").status("sold").build()
+                        new UpdatePetDto(String.valueOf(Long.MIN_VALUE), "hundo", "sold")
                 }
         };
     }
@@ -37,32 +32,32 @@ public class UpdatePetNegativeTest extends PetBaseTest {
     public Object[][] invalidIdData() {
         return new Object [][] {
                 {
-                        new StringPetModel("a", "hundo", "sold")
+                        new UpdatePetDto("a", "hundo", "sold")
                 },
                 {
-                        new StringPetModel("1000a", "hundo", "sold")
+                        new UpdatePetDto("1000a", "hundo", "sold")
                 },
                 {
-                        new StringPetModel("-", "hundo", "sold")
+                        new UpdatePetDto("-", "hundo", "sold")
                 },
                 {
-                        new StringPetModel("-844584845684848454815151444558", "hundo", "sold")
+                        new UpdatePetDto("-844584845684848454815151444558", "hundo", "sold")
                 },
                 {
-                        new StringPetModel("-844584845684848454815151444558", "hundo", "sold")
+                        new UpdatePetDto("844584845684848454815151444558", "hundo", "sold")
                 }
         };
     }
 
     @Test(dataProvider = "invalidId")
-    public void updatePetWithInvalidId(StringPetModel pet) {
+    public void updatePetWithInvalidId(UpdatePetDto pet) {
         Response invalidResponse = petClient.updatePet(pet);
         BaseAssertion invalidAssertion = new BaseAssertion(invalidResponse);
         invalidAssertion.statusCode(404);
     }
 
     @Test(dataProvider = "negativeId")
-    public void updatePetWithNegativeId(PetModel pet) {
+    public void updatePetWithNegativeId(UpdatePetDto pet) {
         Response negativeResponse = petClient.updatePet(pet);
         BaseAssertion negativeAssertion = new BaseAssertion(negativeResponse);
         negativeAssertion.statusCode(404);
@@ -70,7 +65,7 @@ public class UpdatePetNegativeTest extends PetBaseTest {
 
     @Test
     public void updatePetWithoutId() {
-        Response prohibitedResponse = petClient.updatePet(new StringPetModel("", "hundo", "sold"));
+        Response prohibitedResponse = petClient.updatePet(new UpdatePetDto("", "hundo", "sold"));
         BaseAssertion prohibitedAssertion = new BaseAssertion(prohibitedResponse);
         prohibitedAssertion.statusCode(415);
     }

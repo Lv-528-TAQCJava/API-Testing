@@ -6,8 +6,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
-import static com.ss.apitesting.util.ValuesGenerator.generateId;
-
 @Epic("Access to Petstore orders tests")
 @Feature("Delete order positive test suite")
 public class DeleteOrderPositiveTest extends OrderBaseTest {

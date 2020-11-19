@@ -1,5 +1,6 @@
 package com.ss.apitesting.user.positive;
 
+import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,6 +19,7 @@ public class LogoutUserPositiveTest extends UserBaseTest {
     public void getUserLogoutTest() {
         Response response = userClient.getUserLogout();
         Assert.assertEquals(response.getStatusCode(), HTTP_OK);
-        response.then().contentType(ContentType.JSON);
+        BaseAssertion baseAssertion = new BaseAssertion(response);
+        baseAssertion.contentType(ContentType.JSON);
     }
 }

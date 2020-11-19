@@ -2,6 +2,7 @@ package com.ss.apitesting.user.positive;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.UserBuilder;
+import com.ss.apitesting.data.UserRepository;
 import com.ss.apitesting.models.user.UserModel;
 import com.ss.apitesting.user.UserBaseTest;
 import io.qameta.allure.Epic;
@@ -9,6 +10,8 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static com.ss.apitesting.builder.UserBuilder.userWith;
 
 @Epic("Operation about user tests")
 @Feature("Create user positive test suite")
@@ -18,21 +21,21 @@ public class CreateUserPositiveTest extends UserBaseTest {
     public Object[][] data() {
         return new Object[][]{
                 {
-                        UserBuilder.userWith().id(1).username("ilonahk").firstname("ilona")
+                       userWith().id(1).username("ilonahk").firstname("ilona")
                                 .lastname("hryhorak").email("ilona@gmail.com").password("mpk3040h")
                                 .phone("380974298101").build()
                 },
                 {
-                        UserBuilder.userWith().id(Integer.MAX_VALUE).username("77ilonffahk").firstname("ilonvdsa")
+                        userWith().id(Integer.MAX_VALUE).username("77ilonffahk").firstname("ilonvdsa")
                                 .lastname("hryhovfvrak").email("ds7ilona@gmail.com").password("mpk+3040h")
                                 .phone("380974298101").build()
                 },
                 {
-                        UserBuilder.userWith().id(100).username("7").email("ds7ilonagml.com").password("mpk+3040h")
+                        userWith().id(100).username("7").email("ds7ilonagml.com").password("mpk+3040h")
                                 .phone("380974298101").build()
                 },
                 {
-                        UserBuilder.userWith().id(100).username("7").email("ds7ilona@gmail.com").password("mpk+3040h")
+                        userWith().id(100).username("7").email("ds7ilona@gmail.com").password("mpk+3040h")
                                 .phone("3809742923975395725732892758101").build()
                 }
         };
@@ -51,7 +54,7 @@ public class CreateUserPositiveTest extends UserBaseTest {
 
     @Test(description = "Create user with valid data")
     public void createUserWithValidData(){
-        userModel = userClient.createUserData();
+        userModel = UserRepository.createUserData();
         BaseAssertion assertion = new BaseAssertion(userClient.createNewUser(userModel));
         assertion.statusCode(200);
     }

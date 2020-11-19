@@ -1,14 +1,11 @@
 package com.ss.apitesting.pet.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
-import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.pet.PetBaseTest;
 import com.ss.apitesting.util.RetryAnalyzerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -18,7 +15,7 @@ public class GetPetNegativeTest extends PetBaseTest {
 
     @DataProvider(name = "negativeIds")
     public Object[][] negativeData() {
-        return new Object [][] {
+        return new Object[][]{
                 {0L},
                 {-1L},
                 {Long.MIN_VALUE}
@@ -38,10 +35,10 @@ public class GetPetNegativeTest extends PetBaseTest {
 
     @DataProvider(name = "invalidIds")
     public Object[][] invalidData() {
-        return new Object [][] {
+        return new Object[][]{
                 {"a"},
                 {"19V"},
-                {"\'abc\'"},
+                {"'abc'"},
                 {"12345678901234567892345678"},
                 {"-123456786578965789678978978"}
         };

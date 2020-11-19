@@ -3,14 +3,11 @@ package com.ss.apitesting.pet.positive;
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.assertion.PetAssertions;
 import com.ss.apitesting.builder.PetBuilder;
-import com.ss.apitesting.client.PetClient;
 import com.ss.apitesting.models.pet.PetModel;
 import com.ss.apitesting.pet.PetBaseTest;
-import io.restassured.response.Response;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
-import org.testng.annotations.BeforeClass;
+import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -20,7 +17,7 @@ public class GetPetPositiveTest extends PetBaseTest {
 
     @DataProvider(name = "petsData")
     public Object[][] data() {
-        return new Object [][] {
+        return new Object[][]{
                 {
                         PetBuilder.petWith().id(1L).name("doggo").status("available").build()
                 },
