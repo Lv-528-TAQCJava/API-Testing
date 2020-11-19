@@ -10,27 +10,38 @@ import io.restassured.response.Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.File;
+
 public class UploadImagePositiveTest extends PetBaseTest {
     @DataProvider(name = "CreatePet")
     public Object[][] data() {
+        String memeType;
         return new Object [][] {
                 {
-                        PetBuilder.petWith().id(560l).name("doggo").status("available").build(),
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
+                        new File("D:\\image.jpg"),
+                        memeType = "image/jpeg",
+
+                },
+                {
+                        PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
+                        new File("D:\\icon.png"),
+                        memeType = "image/png",
 
                 },
         };
     }
 
     @Test(dataProvider = "CreatePet")
-    public void uploadImageTest(PetModel Pet) {
+    public void uploadImageTest(PetModel Pet, File file, String memeType) {
         petClient.createPet(Pet);
 
 
-        Response updated = petClient.uploadImage(Pet);
+        Response updated = petClient.uploadImage(Pet, file, memeType);
         System.out.println(" Response : "+updated.asString());
         BaseAssertion assertUpdating = new BaseAssertion(updated);
         assertUpdating.statusCode(200);
 
-       // petClient.deleteById(String.valueOf(initialPet.id));
+        petClient.deleteById(String.valueOf(Pet.id));
     }
 }

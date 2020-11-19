@@ -56,16 +56,6 @@ public class PetClient extends BaseClient {
                 .post("/{entity}/{petId}");
     }
 
-    public Response uploadImage(PetModel pet) {
-        return given().log().all()
-                .baseUri(BASE_URL)
-                .accept(ContentType.JSON)
-                .contentType("multipart/form-data")
-                .formParam("additionalMetadata","data")
-                .multiPart("file", new File("D:\\icon.png"),"image/png")
-                .pathParam("petId", pet.id)
-                .post("/pet/{petId}/uploadImage");
-    }
 
     /**
      * Updates name and status of pet, selected by pet's Id(as string)
@@ -82,6 +72,42 @@ public class PetClient extends BaseClient {
                 .contentType(ContentType.URLENC)
                 .pathParam("petId", pet.id)
                 .post("/{entity}/{petId}");
+    }
+
+    /**
+     * Upload image to pet, selected by pet's Id
+     * @param pet a pet to upload image
+     * @param file path to file
+     * @param memeType type of the file
+     * @return result of POST request
+     */
+    public Response uploadImage(PetModel pet, File file, String memeType) {
+        return given().log().all()
+                .baseUri(BASE_URL)
+                .accept(ContentType.JSON)
+                .contentType("multipart/form-data")
+                .formParam("additionalMetadata","data")
+                .multiPart("file", file, memeType)
+                .pathParam("petId", pet.id)
+                .post("/pet/{petId}/uploadImage");
+    }
+
+    /**
+     * Upload image to pet, selected by pet's Id(as String)
+     * @param pet a pet to upload image
+     * @param file path to file
+     * @param memeType type of the file
+     * @return result of POST request
+     */
+    public Response uploadImage(StringPetModel pet, File file, String memeType) {
+        return given().log().all()
+                .baseUri(BASE_URL)
+                .accept(ContentType.JSON)
+                .contentType("multipart/form-data")
+                .formParam("additionalMetadata","data")
+                .multiPart("file", file, memeType)
+                .pathParam("petId", pet.id)
+                .post("/pet/{petId}/uploadImage");
     }
 
     /**
