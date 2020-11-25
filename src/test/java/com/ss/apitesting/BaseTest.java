@@ -1,5 +1,6 @@
 package com.ss.apitesting;
 
+import com.ss.apitesting.util.TestNgListeners;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -7,17 +8,14 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 
-
+@Listeners(TestNgListeners.class)
 public abstract class BaseTest {
     protected Logger log;
 
