@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PetStore" parallel="classes" thread-count="4">
+    <listeners>
+        <listener class-name="com.ss.apitesting.util.TestNgListeners"/>
+        <listener class-name="com.ss.apitesting.util.TestNgAnnotationTransformer"/>
+    </listeners>
+
+    <test name="Positive">
+        <packages>
+            <package name="com.ss.apitesting.order.positive"/>
+            <package name="com.ss.apitesting.pet.positive"/>
+            <package name="com.ss.apitesting.user.positive"/>
+        </packages>
+    </test>
+    <test name="Negative">
+        <packages>
+            <package name="com.ss.apitesting.order.negative"/>
+            <package name="com.ss.apitesting.pet.negative"/>
+            <package name="com.ss.apitesting.user.negative"/>
+        </packages>
+    </test>
+</suite>

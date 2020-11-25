@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
 
-@Listeners({TestNgListeners.class, TestNgAnnotationTransformer.class})
 public abstract class BaseTest {
     protected Logger log;
 
