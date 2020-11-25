@@ -2,7 +2,6 @@ package com.ss.apitesting.pet.negative;
 
 import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.pet.PetBaseTest;
-import com.ss.apitesting.util.RetryAnalyzerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;

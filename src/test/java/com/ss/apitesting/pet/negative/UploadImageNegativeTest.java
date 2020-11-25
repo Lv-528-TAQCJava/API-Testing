@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import java.io.File;
 
 public class UploadImageNegativeTest extends PetBaseTest {
+//TestNG bug: RetryAnalyzer may loop when 'new' is used in DataProvider
+/*
     @DataProvider(name = "InvalidFileType")
     public Object[][] data() {
                 return new Object [][] {
@@ -23,7 +25,7 @@ public class UploadImageNegativeTest extends PetBaseTest {
                 },
         };
     }
-
+*/
     @DataProvider(name = "invalidId")
     public Object[][] invalidIdData() {
         String memeType;
@@ -61,8 +63,13 @@ public class UploadImageNegativeTest extends PetBaseTest {
         };
     }
 
-    @Test(dataProvider = "InvalidFileType")
-    public void uploadInvalidFileTypeTest(PetModel Pet, File file, String memeType) {
+    //TestNG bug: RetryAnalyzer may loop when 'new' is used in DataProvider
+    @Test//(dataProvider = "InvalidFileType")
+    public void uploadInvalidFileTypeTest() {
+        PetModel Pet = PetBuilder.petWith().id(suitableId).name("doggo").status("available").build();
+        File file = new File("D:\\TextFile.txt");
+        String memeType = "text/plain";
+
         petClient.createPet(Pet);
 
         Response invalidResponse = petClient.uploadImage(Pet, file, memeType);
