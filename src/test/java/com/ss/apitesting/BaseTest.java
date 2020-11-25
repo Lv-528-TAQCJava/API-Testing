@@ -8,11 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 
 
 public abstract class BaseTest {
@@ -31,10 +34,20 @@ public abstract class BaseTest {
         MDC.put("testname", className);
         /* ^ Allows logging each test class into separate file.
         The <key> name is defined at logback-test.xml under <discriminator> tag*/
+    }
+
+    @AfterClass
+    public void afterClass() {
+        initLogger();
+        MDC.remove("testname"); //Do not forget, otherwise logging into separate files will not work
+    }
+
+    @BeforeMethod
+    public void setFilters(Method method) {
         File logFile = new File(System.getProperty("user.dir") + "\\target\\logs\\"
-                + className + "_requests.log");
+                + method.getName() + "_requests.log");
         try {
-            logFile.createNewFile();
+            //logFile.createNewFile();
             PrintStream stream = new PrintStream(logFile);
             RestAssured.filters(
                     new ResponseLoggingFilter(LogDetail.ALL, stream),
@@ -50,9 +63,8 @@ public abstract class BaseTest {
         }
     }
 
-    @AfterClass
-    public void afterClass() {
-        initLogger();
-        MDC.remove("testname"); //Do not forget, otherwise logging into separate files will not work
+    @AfterMethod
+    public void switchOffFilters() {
+        RestAssured.replaceFiltersWith(new io.restassured.filter.log.ErrorLoggingFilter());
     }
 }

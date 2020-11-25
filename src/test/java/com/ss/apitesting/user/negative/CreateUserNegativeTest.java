@@ -4,6 +4,7 @@ import com.ss.apitesting.assertion.BaseAssertion;
 import com.ss.apitesting.builder.UserBuilder;
 import com.ss.apitesting.client.UserClient;
 import com.ss.apitesting.models.user.UserModel;
+import com.ss.apitesting.user.UserBaseTest;
 import com.ss.apitesting.util.ValuesGenerator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -17,13 +18,7 @@ import static com.ss.apitesting.builder.UserBuilder.userWith;
 
 @Epic("Operation about user tests")
 @Feature("Create user negative test suite")
-public class CreateUserNegativeTest {
-    private UserClient userClient;
-
-    @BeforeClass
-    public void init() {
-        userClient = new UserClient(ContentType.JSON);
-    }
+public class CreateUserNegativeTest extends UserBaseTest {
 
     @DataProvider(name = "invalidUsers")
     public Object[] data() {
