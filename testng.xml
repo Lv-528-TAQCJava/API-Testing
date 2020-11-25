@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="PetStore" parallel="classes" thread-count="10">
+<suite name="PetStore" parallel="classes" thread-count="8">
     <listeners>
         <listener class-name="com.ss.apitesting.util.TestNgListeners"/>
         <listener class-name="com.ss.apitesting.util.TestNgAnnotationTransformer"/>
