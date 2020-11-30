@@ -12,19 +12,20 @@ import org.testng.annotations.Test;
 import java.io.File;
 
 public class UploadImageNegativeTest extends PetBaseTest {
+//TestNG bug: RetryAnalyzer may loop when 'new' is used in DataProvider
+/*
     @DataProvider(name = "InvalidFileType")
     public Object[][] data() {
-        String memeType;
-        return new Object [][] {
+                return new Object [][] {
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
                         new File("D:\\TextFile.txt"),
-                        memeType = "text/plain",
+                        "text/plain",
 
                 },
         };
     }
-
+*/
     @DataProvider(name = "invalidId")
     public Object[][] invalidIdData() {
         String memeType;
@@ -32,38 +33,43 @@ public class UploadImageNegativeTest extends PetBaseTest {
                 {
                         new StringPetModel("a", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("1000a", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-844584845684848454815151444558", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("-844584845684848454815151444558", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 },
                 {
                         new StringPetModel("", "hundo", "sold"),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
                 }
         };
     }
 
-    @Test(dataProvider = "InvalidFileType")
-    public void uploadInvalidFileTypeTest(PetModel Pet, File file, String memeType) {
+    //TestNG bug: RetryAnalyzer may loop when 'new' is used in DataProvider
+    @Test//(dataProvider = "InvalidFileType")
+    public void uploadInvalidFileTypeTest() {
+        PetModel Pet = PetBuilder.petWith().id(suitableId).name("doggo").status("available").build();
+        File file = new File("D:\\TextFile.txt");
+        String memeType = "text/plain";
+
         petClient.createPet(Pet);
 
         Response invalidResponse = petClient.uploadImage(Pet, file, memeType);
