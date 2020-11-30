@@ -15,18 +15,17 @@ import java.io.File;
 public class UploadImagePositiveTest extends PetBaseTest {
     @DataProvider(name = "CreatePet")
     public Object[][] data() {
-        String memeType;
         return new Object [][] {
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
                         new File("D:\\image.jpg"),
-                        memeType = "image/jpeg",
+                        "image/jpeg",
 
                 },
                 {
                         PetBuilder.petWith().id(suitableId).name("doggo").status("available").build(),
                         new File("D:\\icon.png"),
-                        memeType = "image/png",
+                        "image/png",
 
                 },
         };
